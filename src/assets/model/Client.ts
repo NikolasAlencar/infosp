@@ -1,0 +1,26 @@
+export interface Client{
+    agencia: string,
+    area: string,
+    cadastroCriadoEm: any,
+    cadastroIniciadoEm: any,
+    celular: string,
+    conta: string,
+    cpf: any,
+    dataDeNascimento: string,
+    email: string,
+    endereco: {
+        cep: string,
+        logradouro: string,
+        bairro: string,
+        cidade: string,
+        numero: string,
+        complemento: string,
+        estado: string
+    },
+    nome: string,
+    nomeDaMae: string,
+    senha: string,
+    sobrenome: string,
+    id: any,
+    usuario: string,
+}

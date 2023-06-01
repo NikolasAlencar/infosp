@@ -1,0 +1,61 @@
+.secondary{
+  padding: 0.6rem;
+  width: 100%;
+  margin: 0.3rem;
+}
+
+.primeira-coluna{
+  display: flex;
+  flex-direction: column;
+}
+
+.item{
+  font-size: 0.8rem;
+}
+
+.crivo{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+hr{
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.legenda{
+  margin-right: 1.5rem;
+}
+
+.subtitle{
+  margin-bottom: 0.3rem;
+}
+
+.topo{
+  margin: 0.5rem;
+  justify-content: space-between;
+  display: flex;
+}
+
+.codigos{
+  display: flex;
+  flex-direction: column;
+}
+
+button{
+  margin: 0.3rem;
+}
+
+mat-card{
+  margin: 0.5rem;
+}
+
+@media(max-width: 452px) {
+  .item{
+    font-size: 0.6rem;
+  }
+}
+
+
+

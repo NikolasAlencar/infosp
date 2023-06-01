@@ -1,0 +1,41 @@
+<mat-card class="mat-card-borda">
+  <div class="cabecalho">Backoffice Wallet</div>
+  <div class="principal">
+    <div class="secondary">
+      <div class="first-coluna">
+        <img
+          src="../../../../../assets/img/approve.png"
+          alt="Saldo disponível"
+        />
+        <img
+          src="../../../../../assets/img/cancel.png"
+          alt="Saldo indisponível"
+        />
+      </div>
+      <div class="coluna">
+        <mat-label class="subtitle">Saldo</mat-label>
+        <mat-label class="item-coluna">DISPONÍVEL</mat-label>
+        <mat-label class="item-coluna">BLOQUEADO</mat-label>
+      </div>
+      <div class="coluna">
+        <mat-label class="subtitle">Valor</mat-label>
+        <mat-label class="item-coluna">R$ 0,00</mat-label>
+        <mat-label class="item-coluna">R$ 0,00</mat-label>
+      </div>
+      <div class="last-coluna">
+        <mat-label class="item-coluna green" (click)="bloquear()"
+          >BLOQUEAR</mat-label
+        >
+        <mat-label class="item-coluna red" (click)="liberar()"
+          >LIBERAR</mat-label
+        >
+      </div>
+    </div>
+    <div class="historico-bottom">
+      <div class="historico-bottom-title">Informes de rendimentos</div>
+      <div>Essa conta não contém informes de rendimentos</div>
+      <div class="historico-bottom-title">Cartões vinculados</div>
+      <div>Não existem cartões vinculados</div>
+    </div>
+  </div>
+</mat-card>

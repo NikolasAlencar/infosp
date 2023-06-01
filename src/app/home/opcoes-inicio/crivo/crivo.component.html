@@ -1,0 +1,52 @@
+<mat-card class="mat-card-borda">
+  <div>
+    <div class="topo">
+      <div class="codigos">
+        <span><span style="font-weight: 500">Status: </span>{{ status }}</span>
+        <span
+          ><span style="font-weight: 500">Código de análise: </span
+          >{{ codAnalise }}</span
+        >
+      </div>
+      <div class="botoes">
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="reprocessar()"
+        >
+          Reprocessar
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="reprovar()"
+        >
+          Reprovar
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="secondary" *ngIf="options$ | async as options; else spinnerLoad">
+    <div>
+      <div class="primeira-coluna item">
+        <div class="crivo subtitle">
+          <div>Critério</div>
+          <div class="legenda">Cor</div>
+        </div>
+        <div class="item" *ngFor="let opcao of options">
+          <div class="crivo">
+            <div style="font-weight: 400">(SWT) {{ opcao.nome }} - PF</div>
+            <span class="legenda-green legenda"></span>
+          </div>
+          <hr class="legenda" />
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+<ng-template #spinnerLoad>
+  <mat-spinner></mat-spinner>
+</ng-template>

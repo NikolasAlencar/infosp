@@ -1,0 +1,71 @@
+<div class="a">
+  <div class="principal">
+    <div class="cabecalho">
+      <div class="title">
+        InfoSP
+      </div>
+      <div class="subtitle">Portal de informações da cidade de São Paulo</div>
+    </div>
+    <form [formGroup]="login" novalidate (ngSubmit)="entrar()">
+      <div class="primary">
+        <div class="container">
+          <mat-form-field>
+            <mat-label>usuário</mat-label>
+            <input
+              matInput
+              placeholder="Entre com o seu usuário"
+              formControlName="usuario"
+              required
+            />
+            <mat-error
+              *ngIf="
+                !login.get('usuario')?.valid && login.get('usuario')?.touched
+              "
+              class="form-text text-danger"
+              >Por favor, digite o seu usuário corretamente!</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field class="last">
+            <mat-label>senha</mat-label>
+            <input
+              matInput
+              placeholder="Entre com a sua senha"
+              formControlName="senha"
+              type="password"
+              required
+            />
+            <mat-error
+              *ngIf="
+                !login.get('usuario')?.valid && login.get('usuario')?.touched
+              "
+              class="form-text text-danger"
+              >Por favor, digite a sua senha corretamente!</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <mat-progress-bar
+          mode="indeterminate"
+          *ngIf="loading"
+        ></mat-progress-bar>
+        <div class="botoes" *ngIf="!loading">
+          <div class="button">
+            <div class="img">
+              <img src="../../assets/img/cadeado.png" />
+            </div>
+            <div (click)="entrar()">
+              <button class="entrar" type="submit">Entrar</button>
+            </div>
+          </div>
+          <div class="button" (click)="registrar()">
+            <div class="img">
+              <img src="../../assets/icons/adicionar-usuario.png" />
+            </div>
+            <div>
+              <button class="registrar" type="button">Registrar-se</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

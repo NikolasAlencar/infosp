@@ -1,0 +1,25 @@
+.inferior{
+  display: flex;
+}
+
+@media (max-width: 906px) {
+  .inferior{
+    flex-direction: column;
+  }
+}
+
+.principal{
+  padding-top: 0.5rem;
+}
+
+app-reset-senha, app-enviar-para, app-historico{
+  width: 100%;
+}
+
+
+mat-card{
+  margin: 0.5rem;
+}
+
+
+

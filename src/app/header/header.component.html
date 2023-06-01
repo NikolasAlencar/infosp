@@ -1,0 +1,22 @@
+<p>
+  <mat-toolbar color="primary">
+    <button mat-icon-button class="icon">
+      <mat-icon (click)="openAndClose(!open)">menu</mat-icon>
+    </button>
+    <span>{{ name }}</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="icon">
+      <mat-icon (click)="voltar()">arrow_back</mat-icon>
+    </button>
+    <button mat-icon-button class="icon">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="home"
+        (click)="navegarHome()"
+      >
+        home</mat-icon
+      >
+    </button>
+  </mat-toolbar>
+</p>

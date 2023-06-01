@@ -1,0 +1,104 @@
+<!--Dados pessoais-->
+<form [formGroup]="formulario" novalidate (ngSubmit)="confirmar()">
+  <mat-card class="mat-card-borda">
+    <mat-grid-list [cols]="innerWidth" rowHeight="3:1">
+      <label>Dados pessoais</label>
+      <div class="separator">
+        <div *ngFor="let option of optionsDados">
+          <mat-grid-tile>
+            <!--poderia quebrar em componentes menores pra economizar código-->
+            <mat-form-field
+              appearance="outline"
+              *ngIf="option.name !== 'dataDeNascimento'; else datepicker"
+            >
+              <mat-label>{{ option.desc }}</mat-label>
+              <input
+                matInput
+                formControlName="{{ option.name }}"
+                required
+                readonly="{{ option.name === 'id' ? true : false }}"
+              />
+              <mat-error
+                *ngIf="
+                  !formulario.get(option.name)?.valid &&
+                  formulario.get(option.name)?.touched
+                "
+                class="form-text text-danger"
+                >{{ option.desc }} inválido!</mat-error
+              >
+            </mat-form-field>
+          </mat-grid-tile>
+        </div>
+      </div>
+    </mat-grid-list>
+  </mat-card>
+  <!--Endereço-->
+  <mat-card formGroupName="endereco" class="mat-card-borda">
+    <mat-grid-list [cols]="innerWidth" rowHeight="3:1">
+      <label>Endereço</label>
+      <div class="separator">
+        <div *ngFor="let option of optionsEndereco">
+          <!--poderia quebrar em componentes menores pra economizar código-->
+          <mat-grid-tile>
+            <mat-form-field appearance="outline">
+              <mat-label>{{ option.desc }}</mat-label>
+              <input matInput formControlName="{{ option.name }}" />
+              <mat-error
+                *ngIf="
+                  !formulario.get(option.erro)?.valid &&
+                  formulario.get(option.erro)?.touched
+                "
+                class="form-text text-danger"
+                >{{ option.desc }} inválido!</mat-error
+              >
+            </mat-form-field>
+          </mat-grid-tile>
+        </div>
+      </div>
+    </mat-grid-list>
+    <div class="botao">
+      <button
+        mat-raised-button
+        color="primary"
+        class="consultar"
+        type="button"
+        (click)="abrirConsulta('again')"
+      >
+        Consultar novamente
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="formulario.invalid"
+      >
+        Atualizar dados
+      </button>
+    </div>
+  </mat-card>
+</form>
+
+<ng-template #datepicker>
+  <mat-form-field appearance="fill" [formGroup]="formulario">
+    <mat-label>Choose a date</mat-label>
+    <input
+      matInput
+      [min]="minDate"
+      [max]="maxDate"
+      [matDatepicker]="picker"
+      formControlName="dataDeNascimento"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker startView="month"></mat-datepicker>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #consulta class="consulta">
+  <mat-error class="erro-personalizado">
+    {{ erro }}
+  </mat-error>
+  <app-consulta
+    [reuse]="true"
+    (emiteDados)="recebeDados($event)"
+  ></app-consulta>
+</ng-template>

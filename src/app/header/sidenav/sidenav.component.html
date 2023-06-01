@@ -1,0 +1,15 @@
+<mat-nav-list *ngIf="options$ | async as options; else spinnerLoad">
+  Funcionalidades
+  <mat-list-item
+    class="option"
+    *ngFor="let option of options"
+    (click)="navegar(option)"
+  >
+    <img [src]="option.src" />
+    <span>{{ option.desc }}</span>
+  </mat-list-item>
+</mat-nav-list>
+
+<ng-template #spinnerLoad>
+  <mat-spinner></mat-spinner>
+</ng-template>

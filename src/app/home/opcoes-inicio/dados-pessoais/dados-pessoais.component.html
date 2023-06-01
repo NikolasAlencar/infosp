@@ -1,0 +1,11 @@
+<div class="principal">
+  <app-conta-digital [clienteConsultado]="service.dados$"></app-conta-digital>
+  <app-dados [clienteConsultado]="clienteConsultado" (emiteDados)="recebeDados($event)"></app-dados>
+  <div class="inferior">
+    <app-historico></app-historico>
+    <div>
+      <app-enviar-para></app-enviar-para>
+      <app-reset-senha></app-reset-senha>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="principal">
+  <mat-card>
+    <p class="title">Inserir dados da viagem</p>
+    <div class="body">
+      <p>
+        <mat-icon matSuffix>gps_fixed</mat-icon>
+        <mat-form-field>
+          <mat-label>Ponto de partida</mat-label>
+          <input matInput placeholder="Digite aqui o ponto de partida">
+          <mat-icon matSuffix>youtube_searched_for</mat-icon>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-icon matSuffix>place</mat-icon>
+        <mat-form-field>
+          <mat-label>Destino</mat-label>
+          <input matInput placeholder="Digite aqui o destino">
+          <mat-icon matSuffix>youtube_searched_for</mat-icon>
+        </mat-form-field>
+      </p>
+    </div>
+    <hr>
+    <p class="favoritar" (click)="favoritar()">{{ isLogged() ? 'Favoritar rota' : 'Conectar-se' }}</p>
+    <p (click)="voltarInicio()">Voltar ao inicio</p>
+  </mat-card>
+  <agm-map [latitude]="51.678418" [longitude]="7.809007"></agm-map>
+</div>
+
+<ng-template #onboarding>
+  <div class="onboarding">
+    <p class="onboarding-title">Você não está logado!</p>
+    <p class="onboarding-text">
+      Para acessar todas as funcionalidades disponíveis,
+      pedimos para que conecte na sua conta. Assim conseguimos
+      fornecer uma experiência personalizada para cada usuário.
+    </p>
+    <p class="entrar" [routerLink]="['/login']" (click)="fecharOnboarding()">Entrar na minha conta</p>
+    <p (click)="registrar(); fecharOnboarding()">Registrar-se</p>
+  </div>
+</ng-template>

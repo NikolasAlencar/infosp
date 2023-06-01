@@ -1,0 +1,12 @@
+<div class="principal">
+  <app-resumo-cadastral></app-resumo-cadastral>
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel" *ngIf="options$ | async as options; else spinnerLoad">
+    <a mat-tab-link *ngFor="let option of options" [routerLink]="option.path">{{ option.nome }}</a>
+  </nav>
+  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+  <router-outlet></router-outlet>
+</div>
+
+<ng-template #spinnerLoad>
+  <mat-spinner></mat-spinner>
+</ng-template>

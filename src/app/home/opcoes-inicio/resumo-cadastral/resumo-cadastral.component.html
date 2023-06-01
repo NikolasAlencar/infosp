@@ -1,0 +1,52 @@
+<mat-card class="mat-card-borda">
+  <div class="title">Resumo cadastral</div>
+  <div class="principal">
+    <div class="coluna">
+      <mat-list>
+        <div class="subtitle">Resumo</div>
+        <div>Conta criada</div>
+        <div>Crivo</div>
+        <div>Doc dispositivo anterior (IDWALL)</div>
+        <div>Doc dispositivo atual (IDWALL)</div>
+      </mat-list>
+    </div>
+    <div class="coluna">
+      <mat-list>
+        <div class="subtitle">Marcas de fraude</div>
+        <div>Conta criada</div>
+        <div class="subtitle">PLD</div>
+        <div>Doc dispositivo anterior (IDWALL)</div>
+      </mat-list>
+    </div>
+
+    <div class="botao">
+      <button mat-raised-button color="primary" type="button" (click)="verLegenda()">
+        Ver Legenda
+      </button>
+    </div>
+  </div>
+</mat-card>
+
+<ng-template #legenda>
+  <div class="bottom">
+    <div style="font-weight: 600; margin-top: 0.3rem; margin-bottom: 0.3rem">
+      Legenda de cores
+    </div>
+    <div class="lista">
+      <span class="legenda-green"></span>
+      <div class="item-lista">OK</div>
+    </div>
+    <div class="lista">
+      <span class="legenda-yellow"></span>
+      <div class="item-lista">VER/VER2</div>
+    </div>
+    <div class="lista">
+      <span class="legenda-red"></span>
+      <div class="item-lista">NOK</div>
+    </div>
+    <div class="lista">
+      <span class="legenda-grey"></span>
+      <div class="item-lista">NULO</div>
+    </div>
+  </div>
+</ng-template>

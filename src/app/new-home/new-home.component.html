@@ -1,0 +1,28 @@
+<div class="principal">
+  <div class="title">Bem vindo ao <img src="../assets/img/infosp.PNG"></div>
+
+  <div class="body">
+    <div class="quadrado">
+      <div class="cadastre-se">
+        <div class="sino" (click)="registrar()">
+          <img src="../assets/img/sino.svg">
+          <p>Cadastre-se aqui</p>
+        </div>
+        <p>Cadastre-se para receber as notificações sobre o trânsito de seus locais favoritos</p>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="quadrado">
+      <div class="cadastre-se">
+        <div class="sino mapa" [routerLink]="['/mapa']">
+          <img src="../assets/img/mapa-google.svg">
+          <p>Ver mapa</p>
+        </div>
+        <p>Veja as melhores rotas para chegar ao seu destino</p>
+      </div>
+    </div>
+  </div>
+  <p class="logar" [routerLink]="['/login']">Caso já tenha uma conta, clique aqui para logar</p>
+</div>

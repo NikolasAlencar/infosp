@@ -1,0 +1,45 @@
+<mat-card class="mat-card-custom">
+  <form [formGroup]="registrar" novalidate (ngSubmit)="cadastrar()">
+    <div class="criar-conta">
+      Criar conta <img src="../../assets/icons/adicionar-usuario.png" />
+    </div>
+    <mat-card-content>
+      <div class="timer">
+        <app-timer
+          #timer
+          [iniciaAuto]="true"
+          [tempoSegundos]="30"
+          (acabou)="acabou($event)"
+        ></app-timer>
+
+        <mat-label>
+          Você recebeu um código no email informado, digite-o abaixo antes que
+          ele expire!
+        </mat-label>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Insira o código recebido</mat-label>
+        <input
+          matInput
+          placeholder="Ex. 999999"
+          formControlName="codigo"
+          required
+        />
+        <mat-error *ngIf="registrar.invalid">Código inválido!</mat-error>
+      </mat-form-field>
+
+      <mat-error class="cabouse" *ngIf="acabouTempo" (click)="timer.iniciarContagem(); reiniciar()"
+        >Acabou o tempo, clique aqui para enviar novamente!</mat-error
+      >
+
+      <button mat-button type="submit" [disabled]="registrar.invalid">
+        Cadastrar
+      </button>
+    </mat-card-content>
+  </form>
+</mat-card>
+
+<ng-template #spinnerLoad>
+  <mat-spinner></mat-spinner>
+</ng-template>

@@ -1,0 +1,25 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.icon{
+  border: none;
+}
+
+span{
+  font-size: 1rem;
+}
+
+p{
+  margin: 0;
+}
+
+mat-toolbar{
+  background-image: url('../../assets/img/header.svg') !important;
+  min-height: 180px;
+  background-repeat: no-repeat;
+}
+
+mat-icon{
+  color: #3f51b5;
+}

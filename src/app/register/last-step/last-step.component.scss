@@ -1,0 +1,52 @@
+mat-card{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: rgba(143, 143, 143, 0.274);
+}
+
+mat-card-content{
+  padding: 2rem;
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+}
+
+mat-form-field{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-label{
+  margin-bottom: 1rem;
+}
+
+form{
+  border-radius: 0.3rem;
+}
+
+.criar-conta{
+  background-color: #3f51b5;
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2rem;
+  padding: 1rem;
+  border-radius: 0.3rem 0.3rem 0rem 0rem;
+}
+
+.timer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cabouse{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}

@@ -1,0 +1,31 @@
+.botao{
+  display: flex;
+  justify-content: flex-end;
+}
+
+mat-card{
+  margin: 0.5rem;
+}
+
+.separator{
+  display: flex;
+  justify-content: space-between;
+}
+
+.consulta{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.erro-personalizado{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.consultar{
+  margin-right: 0.5rem;
+}
+
+

@@ -1,0 +1,104 @@
+<div [ngClass]="reuse ? '' : 'a'">
+  <div [ngClass]="reuse ? '' : 'principal'">
+    <div class="title">Consultar cliente</div>
+    <form
+      [formGroup]="consultar"
+      novalidate
+      (ngSubmit)="pesquisar(acoes[opcaoSelecionada].nome)"
+      *ngIf="acoes$ | async as acoes; else spinnerLoad"
+    >
+      <div class="primary">
+        <div class="container">
+          <mat-radio-group formControlName="radio">
+            <mat-radio-button
+              *ngFor="let acao of acoes"
+              value="{{ acao.opcao }}"
+              >{{ acao.nome }}</mat-radio-button
+            >
+          </mat-radio-group>
+
+          <mat-form-field
+            appearance="fill"
+            *ngIf="acoes[opcaoSelecionada].nome === 'CPF'"
+          >
+            <mat-label>{{ acoes[opcaoSelecionada].nome }}</mat-label>
+            <input
+              matInput
+              [placeholder]="acoes[opcaoSelecionada].descricao"
+              [formControlName]="acoes[opcaoSelecionada].nome"
+              required
+              mask="000.000.000-00"
+            />
+            <mat-error class="form-text text-danger">{{
+              acoes[opcaoSelecionada].erro
+            }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="fill"
+            *ngIf="acoes[opcaoSelecionada].nome === 'Agência/Conta'"
+          >
+            <mat-label>{{ acoes[opcaoSelecionada].nome }}</mat-label>
+            <input
+              matInput
+              [placeholder]="acoes[opcaoSelecionada].descricao"
+              [formControlName]="acoes[opcaoSelecionada].nome"
+              required
+              mask="0000/000000-0"
+            />
+            <mat-error class="form-text text-danger">{{
+              acoes[opcaoSelecionada].erro
+            }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="fill"
+            *ngIf="acoes[opcaoSelecionada].nome === 'Celular'"
+          >
+            <mat-label>{{ acoes[opcaoSelecionada].nome }}</mat-label>
+            <input
+              matInput
+              [placeholder]="acoes[opcaoSelecionada].descricao"
+              [formControlName]="acoes[opcaoSelecionada].nome"
+              required
+              mask="(00) 00000-0000"
+            />
+            <mat-error class="form-text text-danger">{{
+              acoes[opcaoSelecionada].erro
+            }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="fill"
+            *ngIf="acoes[opcaoSelecionada].nome === 'userId'"
+          >
+            <mat-label>{{ acoes[opcaoSelecionada].nome }}</mat-label>
+            <input
+              matInput
+              [placeholder]="acoes[opcaoSelecionada].descricao"
+              [formControlName]="acoes[opcaoSelecionada].nome"
+              required
+            />
+            <mat-error class="form-text text-danger">{{
+              acoes[opcaoSelecionada].erro
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <mat-progress-bar
+          mode="indeterminate"
+          *ngIf="loading"
+        ></mat-progress-bar>
+        <div class="botao" *ngIf="!loading">
+          <button mat-raised-button color="primary" type="submit">
+            PESQUISAR
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #spinnerLoad>
+  <mat-spinner></mat-spinner>
+</ng-template>
+

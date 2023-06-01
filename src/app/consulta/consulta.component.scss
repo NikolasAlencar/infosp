@@ -1,0 +1,66 @@
+.title{
+  font-weight: 0.3rem;
+  font-size: 1.3rem;
+  padding-top: 0.9rem;
+  margin: 0rem 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.principal{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: black;
+  background-color: white;
+  border-radius: 0.3rem;
+  box-shadow: 0.06rem 0.06rem 0.06rem 0.06rem rgba(0, 0, 0, 0.144);
+}
+
+::ng-deep{
+  mat-radio-container mat-radio-outer-circle{
+    background-color: #3f51b5;
+  }
+}
+
+.a{
+  background-color: rgba(143, 143, 143, 0.274);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.primary{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.botao{
+  display: flex;
+  width: 100%;
+}
+
+button{
+  width: 100%;
+  margin: 1rem;
+}
+
+mat-progress-bar{
+  margin: 1.5rem 0rem;
+}
+
+mat-radio-button{
+  margin: 1rem;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 1rem;
+}
