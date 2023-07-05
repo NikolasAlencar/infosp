@@ -8,11 +8,13 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatRadioModule } from "@angular/material/radio";
 import { NgxMaskModule } from "ngx-mask";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatIconModule } from "@angular/material/icon";
 
 @NgModule({
   declarations: [ConsultaComponent],
   imports: [
     CommonModule,
+    MatIconModule,
     ConsultaRoutingModule,
     SharedModule,
     MatButtonModule,

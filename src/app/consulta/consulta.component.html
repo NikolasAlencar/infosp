@@ -1,104 +1,77 @@
-<div [ngClass]="reuse ? '' : 'a'">
-  <div [ngClass]="reuse ? '' : 'principal'">
-    <div class="title">Consultar cliente</div>
-    <form
-      [formGroup]="consultar"
-      novalidate
-      (ngSubmit)="pesquisar(acoes[opcaoSelecionada].nome)"
-      *ngIf="acoes$ | async as acoes; else spinnerLoad"
-    >
-      <div class="primary">
-        <div class="container">
-          <mat-radio-group formControlName="radio">
-            <mat-radio-button
-              *ngFor="let acao of acoes"
-              value="{{ acao.opcao }}"
-              >{{ acao.nome }}</mat-radio-button
-            >
-          </mat-radio-group>
-
-          <mat-form-field
-            appearance="fill"
-            *ngIf="acoes[opcaoSelecionada].nome === 'CPF'"
-          >
-            <mat-label>{{ acoes[opcaoSelecionada].nome }}</mat-label>
-            <input
-              matInput
-              [placeholder]="acoes[opcaoSelecionada].descricao"
-              [formControlName]="acoes[opcaoSelecionada].nome"
-              required
-              mask="000.000.000-00"
-            />
-            <mat-error class="form-text text-danger">{{
-              acoes[opcaoSelecionada].erro
-            }}</mat-error>
-          </mat-form-field>
-
-          <mat-form-field
-            appearance="fill"
-            *ngIf="acoes[opcaoSelecionada].nome === 'Agência/Conta'"
-          >
-            <mat-label>{{ acoes[opcaoSelecionada].nome }}</mat-label>
-            <input
-              matInput
-              [placeholder]="acoes[opcaoSelecionada].descricao"
-              [formControlName]="acoes[opcaoSelecionada].nome"
-              required
-              mask="0000/000000-0"
-            />
-            <mat-error class="form-text text-danger">{{
-              acoes[opcaoSelecionada].erro
-            }}</mat-error>
-          </mat-form-field>
-
-          <mat-form-field
-            appearance="fill"
-            *ngIf="acoes[opcaoSelecionada].nome === 'Celular'"
-          >
-            <mat-label>{{ acoes[opcaoSelecionada].nome }}</mat-label>
-            <input
-              matInput
-              [placeholder]="acoes[opcaoSelecionada].descricao"
-              [formControlName]="acoes[opcaoSelecionada].nome"
-              required
-              mask="(00) 00000-0000"
-            />
-            <mat-error class="form-text text-danger">{{
-              acoes[opcaoSelecionada].erro
-            }}</mat-error>
-          </mat-form-field>
-
-          <mat-form-field
-            appearance="fill"
-            *ngIf="acoes[opcaoSelecionada].nome === 'userId'"
-          >
-            <mat-label>{{ acoes[opcaoSelecionada].nome }}</mat-label>
-            <input
-              matInput
-              [placeholder]="acoes[opcaoSelecionada].descricao"
-              [formControlName]="acoes[opcaoSelecionada].nome"
-              required
-            />
-            <mat-error class="form-text text-danger">{{
-              acoes[opcaoSelecionada].erro
-            }}</mat-error>
-          </mat-form-field>
+<div class="principal">
+  <div class="primary">
+    <div class="newPost" (click)="openNewPost()">
+      <mat-form-field appearance="outline">
+        <img src="../../assets/img/teste-perfil-postagem.jpg" alt="">
+        <input matInput placeholder="Publicar uma nova notícia...">
+        <mat-icon matSuffix>control_point</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="post" *ngFor="let bullet of [1,2,3,4,5]; let lastIndex = last">
+      <div class="person">
+        <div class="info">
+          <img src="../../assets/img/teste-perfil-postagem.jpg" alt="">
+          <p>Nikolas Alencar</p>
         </div>
-        <mat-progress-bar
-          mode="indeterminate"
-          *ngIf="loading"
-        ></mat-progress-bar>
-        <div class="botao" *ngIf="!loading">
-          <button mat-raised-button color="primary" type="submit">
-            PESQUISAR
-          </button>
+        <span class="dots" (click)="handleOptions()">...
+          <div class="options" *ngIf="isOpenOptions">
+            <p>Excluir publicação</p>
+            <p>Editar publicação</p>
+            <p>Compartilhar publicação</p>
+          </div>
+        </span>
+      </div>
+      <div class="media">
+        <img src="../../assets/img/teste-postagem.jpg" alt="">
+      </div>
+      <div class="footer">
+        <div class="interactions">
+          <span>15</span><mat-icon>thumb_up_alt</mat-icon>
+          <mat-icon>favorite</mat-icon>
+          <mat-icon>add_comment</mat-icon>
+        </div>
+        <div class="comments">
+          <img src="../../assets/img/teste-perfil-postagem.jpg" alt="">
+          <mat-card>
+            <mat-label>
+              <p class="name">Nikolas Alencar</p>
+              <p class="comment">Adicionei um comentário para testar</p>
+            </mat-label>
+          </mat-card>
+        </div>
+        <div class="addComments">
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Adicionar um comentário...">
+          </mat-form-field>
         </div>
       </div>
-    </form>
+      <hr style="border-color: white;" *ngIf="!lastIndex">
+    </div>
   </div>
+
+  <p class="maisNoticias">Ver mais notícias</p>
 </div>
 
-<ng-template #spinnerLoad>
-  <mat-spinner></mat-spinner>
+<ng-template #newPost>
+  <div class="templateNewPost">
+    <div class="header">
+      Nova notícia
+    </div>
+    <div class="body">
+      <div class="info">
+        <img src="../../assets/img/teste-perfil-postagem.jpg" alt="">
+        <p>Nikolas Alencar</p>
+      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Escreva detalhes sobre a notícia</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+      <div class="addArquivo">
+        <label for="arquivo"><mat-icon>insert_drive_file</mat-icon><span>Adicionar arquivo</span></label>
+        <input type="file" name="arquivo" id="arquivo">
+      </div>
+      <button mat-raised-button color="primary">Publicar</button>
+    </div>
+  </div>
 </ng-template>
 

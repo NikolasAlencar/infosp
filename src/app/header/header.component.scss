@@ -15,11 +15,6 @@ p{
 }
 
 mat-toolbar{
-  background-image: url('../../assets/img/header.svg') !important;
-  min-height: 180px;
-  background-repeat: no-repeat;
+  height: 3rem;
 }
 
-mat-icon{
-  color: #3f51b5;
-}

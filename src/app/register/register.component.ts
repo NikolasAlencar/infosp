@@ -54,6 +54,10 @@ export class RegisterComponent implements OnInit {
     ).subscribe(valor => _.isEmpty(valor) ? '' : abstractControl.setErrors({jaExiste: true}))
   }
 
+  tokenValid(): any {
+    return this.service.getOptions('options-register')
+  }
+
   ngOnInit(): void {
     this.adicionarFiltros(this.registrar.get('usuario') as AbstractControl, 7, 'user')
     this.adicionarFiltros(this.registrar.get('email') as AbstractControl, 7, 'email')

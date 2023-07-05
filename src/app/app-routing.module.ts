@@ -24,7 +24,7 @@ export const routes: Routes = [
     data: {
       header: {
         hasHeader: true,
-        name: "Consulta"
+        name: "Feed de Notícias"
       }
     }
   },
