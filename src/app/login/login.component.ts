@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(user).subscribe({
         next: () => {
-          this.navigate.navegarParaConsulta();
+          this.navigate.navegarParaFeed();
         },
         error: () => {
           this.errorService.erroConsulta("Erro ao consultar o usuário informado, verifique os dados e tente novamente!")

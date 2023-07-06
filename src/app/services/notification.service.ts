@@ -12,7 +12,7 @@ export class NotificationService {
     const notification = new Notification("Avião capota em São Paulo",
     { body: 'Avião acaba tendo um trágico fim essa tarde ao capotar na rua da sua mãe', icon: '../../assets/icons/aviao.jpg'});
     notification.onclick = () => {
-      this.zone.run(() => {if(this.isLogged()) this.navigate.navegarParaConsulta()});
+      this.zone.run(() => {if(this.isLogged()) this.navigate.navegarParaFeed()});
     }
   }
 

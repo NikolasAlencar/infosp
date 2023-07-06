@@ -1,0 +1,226 @@
+.principal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.primary{
+  padding: 1rem;
+  background-color: rgba(109, 109, 109, 0.055);
+  box-shadow: 0.06rem 0.06rem 0.06rem 0.06rem rgba(0, 0, 0, 0.144);
+  height: 100%;
+  max-width: 525px;
+  position: relative;
+}
+
+.footer{
+  margin-bottom: 1rem;
+}
+
+.post{
+  margin: 1rem 0;
+}
+
+.viewPost{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.media{
+  margin-bottom: 10px;
+}
+
+.maisNoticias{
+  font-size: 1rem;
+  margin: 3rem 0px;
+  color: #3f51b5;
+}
+
+.person{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  .info{
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    p{
+      padding-left: 5px;
+      margin: 0;
+    }
+
+    img{
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.dots{
+  font-size: 1.5rem;
+  position: relative;
+
+  .options{
+    transition-delay: 1s;
+    left: -11.5rem;
+    font-size: 1rem;
+    top: 10;
+    white-space: nowrap;
+    min-width: 100px;
+    position: absolute;
+    background-color: rgb(221, 221, 221);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+}
+
+.interactions{
+  * {
+    margin-left: 5px;
+  }
+  margin-bottom: 10px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.addComments, .comments{
+  margin-bottom: 5px;
+
+  input{
+    margin-left: 10px;
+  }
+
+  mat-form-field{
+    width: 100%;
+  }
+}
+
+.newPost{
+  mat-form-field{
+    width: 100%;
+    align-items: center;
+
+    img{
+      margin-right: 10px;
+    }
+
+    ::ng-deep{
+      .mat-form-field-flex{
+        align-items: center;
+      }
+
+      .mat-form-field-infix{
+        display: flex;
+      }
+    }
+  }
+}
+
+.seletor{
+  img{
+    height: 25px;
+    width: 25px;
+    background: rgba(83, 83, 83, 0.123);
+    border-radius: 50%;
+    padding: 5px;
+  }
+}
+
+.right{
+  margin-left: 10px;
+}
+
+.left{
+  transform: rotate(180deg);
+  margin-right: 10px;
+}
+
+.templateNewPost{
+  .header{
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 24px;
+  }
+
+  .addArquivo{
+    span{
+      margin-top: 5px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 30px;
+      min-height: 150px;
+      width: 100%;
+      background-color: #33333331;
+      color: #FFF;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+    }
+  }
+
+  .body{
+    display: flex;
+    flex-direction: column;
+
+    mat-form-field{
+      min-width: 300px;
+      margin-top: 10px;
+    }
+
+    .info{
+
+      p{
+        font-weight: bold;
+      }
+
+      img{
+        margin-right: 10px;
+      }
+
+      justify-content: flex-start;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.comments, .newPost, .body{
+  display: flex;
+  margin-bottom: 10px;
+
+  p{
+    margin: 0;
+  }
+
+  .name{
+    font-weight: bold;
+  }
+
+  mat-card{
+    margin-left: 10px;
+    width: 100%;
+  }
+
+  img{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+}

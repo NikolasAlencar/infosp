@@ -17,8 +17,8 @@ export class NavigateService {
     this.router.navigate(["/home"], params);
   }
 
-  navegarParaConsulta() {
-    this.router.navigate(["/consulta"]);
+  navegarParaFeed() {
+    this.router.navigate(["/feed"]);
   }
 
   navegarParaInicio() {

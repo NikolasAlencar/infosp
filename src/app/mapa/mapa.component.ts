@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class MapaComponent implements OnInit {
 
-  constructor(private mensagemService: EnviaMensagemService, private navigate: NavigateService, private dialog: MatDialog, private zone: NgZone) { }
+  constructor(private mensagemService: EnviaMensagemService, private navigate: NavigateService, private dialog: MatDialog) { }
 
   favoritar() {
     this.isLogged() ? this.mensagemService.sucesso(`A rota foi favoritada com sucesso!`) : this.abrirOnboarding();

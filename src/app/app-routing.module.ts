@@ -18,8 +18,8 @@ export const routes: Routes = [
     loadChildren: () => import("./login/login.module").then(m => m.LoginModule),
   },
   {
-    path: "consulta",
-    loadChildren: () => import("./consulta/consulta.module").then(m => m.ConsultaModule),
+    path: "feed",
+    loadChildren: () => import("./feed/feed.module").then(m => m.FeedModule),
     canLoad: [AuthorizationGuard],
     data: {
       header: {
