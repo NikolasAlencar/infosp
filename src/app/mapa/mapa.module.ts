@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     MapaRoutingModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyApPbBd0wDft1g6AWSRKPNFyrxtEcunhL0'
+      apiKey: '5151515151515'
     }),
   ]
 })
