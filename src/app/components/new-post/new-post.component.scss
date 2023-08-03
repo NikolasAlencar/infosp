@@ -1,0 +1,108 @@
+.templateNewPost{
+  .header{
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 24px;
+  }
+
+  .addArquivo{
+    span{
+      margin-top: 5px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 30px;
+      min-height: 150px;
+      width: 100%;
+      background-color: #33333331;
+      color: #FFF;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+    }
+  }
+
+  .body{
+    display: flex;
+    flex-direction: column;
+
+    mat-form-field{
+      min-width: 300px;
+      margin-top: 10px;
+    }
+
+    .info{
+
+      p{
+        font-weight: bold;
+      }
+
+      img{
+        margin-right: 10px;
+      }
+
+      justify-content: flex-start;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.body{
+  display: flex;
+  flex-direction: column;
+
+  mat-form-field{
+    min-width: 300px;
+    margin-top: 10px;
+  }
+
+  .info{
+
+    p{
+      font-weight: bold;
+    }
+
+    img{
+      margin-right: 10px;
+    }
+
+    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+  }
+}
+
+
+.comments, .newPost, .body{
+display: flex;
+margin-bottom: 10px;
+
+p{
+  margin: 0;
+}
+
+.name{
+  font-weight: bold;
+}
+
+mat-card{
+  margin-left: 10px;
+  width: 100%;
+}
+
+img{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+}

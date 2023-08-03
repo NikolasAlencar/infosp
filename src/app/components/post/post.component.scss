@@ -1,0 +1,128 @@
+.footer{
+  margin-bottom: 1rem;
+}
+
+.post{
+  margin: 1rem 0;
+}
+
+.media{
+  margin-bottom: 10px;
+
+  img{
+    width: 100%;
+  }
+}
+
+.viewPost{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.person{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  .info{
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    p{
+      padding-left: 5px;
+      margin: 0;
+    }
+
+    img{
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.dots{
+  font-size: 1.5rem;
+  position: relative;
+
+  .options{
+    transition-delay: 1s;
+    left: -11.5rem;
+    font-size: 1rem;
+    top: 10;
+    white-space: nowrap;
+    min-width: 100px;
+    position: absolute;
+    background-color: rgb(221, 221, 221);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+}
+
+.interactions{
+  * {
+    margin-left: 5px;
+  }
+  margin-bottom: 10px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.addComments, .comments{
+  margin-bottom: 5px;
+
+  input{
+    margin-left: 10px;
+  }
+
+  mat-form-field{
+    width: 100%;
+  }
+}
+
+.seletor{
+  img{
+    height: 25px;
+    width: 25px;
+    background: rgba(83, 83, 83, 0.123);
+    border-radius: 50%;
+    padding: 5px;
+  }
+}
+
+.right{
+  margin-left: 10px;
+}
+
+.left{
+  transform: rotate(180deg);
+  margin-right: 10px;
+}
+
+.comments, .newPost, .body{
+  display: flex;
+  margin-bottom: 10px;
+
+  p{
+    margin: 0;
+  }
+
+  .name{
+    font-weight: bold;
+  }
+
+  mat-card{
+    margin-left: 10px;
+    width: 100%;
+  }
+
+  img{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+}

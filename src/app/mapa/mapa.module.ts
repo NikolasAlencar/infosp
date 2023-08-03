@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SharedModule } from '../shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     MapaRoutingModule,
     AgmCoreModule.forRoot({
-      apiKey: '5151515151515'
+      apiKey: environment.apiKeyGoogle
     }),
   ]
 })

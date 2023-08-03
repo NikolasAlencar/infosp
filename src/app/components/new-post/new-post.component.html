@@ -1,0 +1,35 @@
+<div class="templateNewPost">
+  <div class="header">
+    Nova notícia
+  </div>
+  <form [formGroup]="newPostForm" novalidate (ngSubmit)="postar()">
+    <div class="body">
+      <div class="info">
+        <img src="../../assets/img/teste-perfil-postagem.jpg">
+        <p>Nikolas Alencar</p>
+      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Escreva o título da notícia</mat-label>
+        <input matInput formControlName="titulo">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Escreva detalhes sobre a notícia</mat-label>
+        <textarea matInput formControlName="descricao"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-select placeholder="Escolha o tipo da noticia">
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="addArquivo">
+        <label for="arquivo" [ngStyle]="uploadedFile ? {'color': 'black'} : {'color': 'white'}">
+          <mat-icon>insert_drive_file</mat-icon>
+          <span>{{ uploadedFile ? 'Arquivo adicionado com sucesso!' : 'Adicionar arquivo'}}</span>
+        </label>
+        <input formControlName="imagem" type="file" name="arquivo" id="arquivo" (change)="onFileChange($event)">
+      </div>
+      <button mat-raised-button color="primary" type="submit" [disabled]="newPostForm.invalid">Publicar</button>
+    </div>
+  </form>
+</div>

@@ -4,7 +4,7 @@ import { Observable, Subject } from "rxjs";
 import { User } from "./model/user";
 import { UserLogin } from "./model/user-login";
 import { environment } from "src/environments/environment";
-import { ErrorService } from "../services/error.service";
+import { GerenciaEstadoService } from "../services/gerencia-estado.service";
 
 const CACHE_KEY_TOKEN = "TOKEN";
 const TOKEN_ENDPOINT = `${environment.api}/auth/login`;
@@ -16,7 +16,7 @@ export class AuthorizationService {
   public redirectUrl!: string;
   private _user: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private gerenciaEstado: GerenciaEstadoService) {}
 
   // bate na autenticação do backend e retorna o token
   requestToken(user: any): Observable<HttpResponse<User>> {
@@ -31,8 +31,10 @@ export class AuthorizationService {
   login(user: UserLogin): Observable<object | User> {
     const loginSubject = new Subject<User>();
     this.requestToken(user).subscribe({
-      next: (response: HttpResponse<any>) => {
+      next: (response: any) => {
         const { body: loggedUser } = response;
+        this.setUserState(loggedUser.infoUser);
+        delete loggedUser.infoUser;
         loggedUser.token = response.headers.get("x-access-token");
         this.saveUserInfo(loggedUser);
         loginSubject.next(loggedUser);
@@ -50,6 +52,10 @@ export class AuthorizationService {
   logout(): void {
     this._user = undefined;
     this.removeUser();
+  }
+
+  private setUserState(infoUser: any){
+    this.gerenciaEstado.setUserData(infoUser)
   }
 
   private setUser(user: User): void {

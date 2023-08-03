@@ -1,5 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { FeedService } from "./services/feed.service";
+import { Observable, catchError, map } from "rxjs";
+import { ErrorService } from "../services/error.service";
 
 @Component({
   selector: "app-feed",
@@ -8,10 +11,19 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class FeedComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) {}
+  cachePosts: any;
+
+  constructor(private dialog: MatDialog, private feedService: FeedService, private errorService: ErrorService) {}
+
+  posts$: Observable<any> = this.feedService.getPosts().pipe(
+    map((response: any) => response['data']),
+    catchError(async () => this.errorService.trazerErro())
+  )
 
   ngOnInit(): void {
-    this.openPost()
+    this.posts$.subscribe(posts => {
+      this.cachePosts = posts
+    })
   }
 
   @ViewChild('newPost', { static: true })
@@ -26,11 +38,11 @@ export class FeedComponent implements OnInit {
     this.dialog.open(this.newPost)
   }
 
-  openPost(){
-    this.dialog.open(this.viewPost)
+  closeDialogs(){
+    this.dialog.closeAll()
   }
 
-  handleOptions(){
-    this.isOpenOptions = !this.isOpenOptions;
+  openPost(){
+    this.dialog.open(this.viewPost)
   }
 }

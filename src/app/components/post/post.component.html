@@ -1,0 +1,98 @@
+<div class="post" *ngFor="let post of posts; let lastIndex = last; let index = index;">
+  <div class="person">
+    <div class="info">
+      <!--A imagem que precisará do perfil-->
+      <img [src]="post.imgUsuario">
+      <!--Nome do usuário-->
+      <p>{{ post.nomeUsuario }}</p>
+    </div>
+    <span class="dots" (click)="handleOptions(index, post.postAberto)">...
+      <div class="options" *ngIf="cachePosts[index].postAberto">
+        <p>Excluir publicação</p>
+        <p>Editar publicação</p>
+        <p>Compartilhar publicação</p>
+      </div>
+    </span>
+  </div>
+  <div class="media" (click)="openPost()">
+    <!--A imagem que precisará do post-->
+    <img [src]="post.imgPost">
+  </div>
+  <div class="footer">
+    <div class="interactions">
+      <!--Quantidade de interações-->
+      <span>{{ post.interacoes }}</span><mat-icon>thumb_up_alt</mat-icon>
+      <mat-icon>favorite</mat-icon>
+      <mat-icon>add_comment</mat-icon>
+    </div>
+    <!--Quantidade de comentários-->
+    <div class="comments" *ngFor="let comentario of post.comentarios">
+      <img [src]="comentario.imgUsuario">
+      <mat-card>
+        <mat-label>
+          <!--A imagem que precisará do perfil-->
+          <p class="name">{{ comentario.nomeUsuario }}</p>
+          <!--Comentário-->
+          <p class="comment">{{ comentario.mensagemComentario }}</p>
+        </mat-label>
+      </mat-card>
+    </div>
+    <div class="addComments">
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Adicionar um comentário...">
+      </mat-form-field>
+    </div>
+  </div>
+  <hr style="border-color: white;" *ngIf="!lastIndex">
+</div>
+
+<!--ajustar-->
+<ng-template #viewPost>
+  <div class="viewPost">
+    <div class="seletor left">
+      <img src="../../assets/img/chevron.svg">
+    </div>
+    <div class="post">
+      <div class="person">
+        <div class="info">
+          <img src="../../assets/img/teste-perfil-postagem.jpg">
+          <p>Nikolas Alencar</p>
+        </div>
+        <span class="dots" (click)="handleOptions()">...
+          <div class="options" *ngIf="">
+            <p>Excluir publicação</p>
+            <p>Editar publicação</p>
+            <p>Compartilhar publicação</p>
+          </div>
+        </span>
+      </div>
+      <div class="media">
+        <img src="../../assets/img/teste-postagem.jpg">
+      </div>
+      <div class="footer">
+        <div class="interactions">
+          <span>15</span><mat-icon>thumb_up_alt</mat-icon>
+          <mat-icon>favorite</mat-icon>
+          <mat-icon>add_comment</mat-icon>
+        </div>
+        <div class="comments">
+          <img src="../../assets/img/teste-perfil-postagem.jpg">
+          <mat-card>
+            <mat-label>
+              <p class="name">Nikolas Alencar</p>
+              <p class="comment">Adicionei um comentário para testar</p>
+            </mat-label>
+          </mat-card>
+        </div>
+        <div class="addComments">
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Adicionar um comentário...">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="seletor right">
+      <img src="../../assets/img/chevron.svg">
+    </div>
+  </div>
+</ng-template>
