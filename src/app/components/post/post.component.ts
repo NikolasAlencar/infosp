@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, Input, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 
 @Component({
@@ -10,6 +10,7 @@ export class PostComponent implements OnInit {
 
   @Input() posts: any;
   @Input() cachePosts: any;
+  indexActivePost: number = 0;
 
   @ViewChild('viewPost', { static: true })
   viewPost!: TemplateRef<any>
@@ -20,11 +21,12 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openPost(){
+  openPost(index: number){
+    this.indexActivePost = index;
     this.dialog.open(this.viewPost)
   }
 
-  handleOptions(index?: number, situation?: any){
+  handleOptions(index?: number){
     this.cachePosts[index as number].postAberto = !this.cachePosts[index as number].postAberto;
   }
 }

@@ -6,12 +6,11 @@ import { MatRadioModule } from "@angular/material/radio";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from '@angular/material/select';
-import { PostComponent } from "./post.component";
+import { ViewPostComponent } from "./view-post.component";
 import { SharedModule } from "src/app/shared/shared.module";
-import { ViewPostModule } from "../view-post/view-post.module";
 
 @NgModule({
-  declarations: [PostComponent],
+  declarations: [ViewPostComponent],
   imports: [
     CommonModule,
     MatIconModule,
@@ -19,9 +18,8 @@ import { ViewPostModule } from "../view-post/view-post.module";
     MatSelectModule,
     MatButtonModule,
     MatRadioModule,
-    MatProgressSpinnerModule,
-    ViewPostModule
+    MatProgressSpinnerModule
   ],
-  exports: [PostComponent]
+  exports: [ViewPostComponent]
 })
-export class PostModule {}
+export class ViewPostModule {}

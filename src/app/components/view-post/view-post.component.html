@@ -1,0 +1,47 @@
+<div class="viewPost">
+  <button class="seletor left" [ngClass]="{'opacity' : verificaMenor()}" [disabled]="verificaMenor()" (click)="changeActiveIndex(-1)">
+    <img src="../../assets/img/chevron.svg">
+  </button>
+  <div class="post">
+    <div class="person">
+      <div class="info">
+        <img [src]="posts[indexActivePost].imgUsuario">
+        <p>{{ posts[indexActivePost].nomeUsuario }}</p>
+      </div>
+      <span class="dots" (click)="handleOptions()">...
+        <div class="options" *ngIf="posts[indexActivePost].postAberto">
+          <p>Excluir publicação</p>
+          <p>Editar publicação</p>
+          <p>Compartilhar publicação</p>
+        </div>
+      </span>
+    </div>
+    <div class="media">
+      <img [src]="posts[indexActivePost].imgPost">
+    </div>
+    <div class="footer">
+      <div class="interactions">
+        <span>15</span><mat-icon>thumb_up_alt</mat-icon>
+        <mat-icon>favorite</mat-icon>
+        <mat-icon>add_comment</mat-icon>
+      </div>
+      <div class="comments" *ngFor="let comentario of posts[indexActivePost].comentarios">
+        <img [src]="comentario.imgUsuario">
+        <mat-card>
+          <mat-label>
+            <p class="name">{{ comentario.nomeUsuario }}</p>
+            <p class="comment">{{ comentario.mensagemComentario }}</p>
+          </mat-label>
+        </mat-card>
+      </div>
+      <div class="addComments">
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Adicionar um comentário...">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <button class="seletor right" [ngClass]="{'opacity' : verificaMaior()}" [disabled]="verificaMaior()" (click)="changeActiveIndex(1)">
+    <img src="../../assets/img/chevron.svg">
+  </button>
+</div>
