@@ -3,6 +3,9 @@ import { MatDialog } from "@angular/material/dialog";
 import { FeedService } from "./services/feed.service";
 import { Observable, catchError, map } from "rxjs";
 import { ErrorService } from "../services/error.service";
+import { GerenciaEstadoService } from "../services/gerencia-estado.service";
+import { UserData } from "src/assets/model/UserData";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-feed",
@@ -12,8 +15,10 @@ import { ErrorService } from "../services/error.service";
 export class FeedComponent implements OnInit {
 
   cachePosts: any;
+  userData!: UserData
+  urlImg = environment.urlImg;
 
-  constructor(private dialog: MatDialog, private feedService: FeedService, private errorService: ErrorService) {}
+  constructor(private dialog: MatDialog, private feedService: FeedService, private errorService: ErrorService, private gerenciaEstado: GerenciaEstadoService) {}
 
   posts$: Observable<any> = this.feedService.getPosts().pipe(
     map((response: any) => response['data']),
@@ -24,6 +29,10 @@ export class FeedComponent implements OnInit {
     this.posts$.subscribe(posts => {
       this.cachePosts = posts
     })
+
+    this.gerenciaEstado.userData$.subscribe(userData => {
+      this.userData = userData
+    });
   }
 
   @ViewChild('newPost', { static: true })

@@ -4,6 +4,7 @@ import { FeedService } from "src/app/feed/services/feed.service";
 import { GerenciaEstadoService } from "src/app/services/gerencia-estado.service";
 import { UserData } from "src/assets/model/UserData";
 import { getIdUnico } from "src/assets/util/idUnico";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-new-post",
@@ -15,6 +16,7 @@ export class NewPostComponent implements OnInit {
   uploadedFile = false;
   arquivo: any;
   userData: UserData | undefined;
+  urlImg = environment.urlImg;
   @Output() posted = new EventEmitter();
 
   constructor(private fb: FormBuilder, private gerenciaEstado: GerenciaEstadoService, private feedService: FeedService) { }

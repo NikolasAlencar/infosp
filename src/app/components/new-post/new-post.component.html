@@ -5,8 +5,8 @@
   <form [formGroup]="newPostForm" novalidate (ngSubmit)="postar()">
     <div class="body">
       <div class="info">
-        <img src="../../assets/img/teste-perfil-postagem.jpg">
-        <p>Nikolas Alencar</p>
+        <img [src]="urlImg + userData?.imgUsuario + '.jpg'">
+        <p>{{userData?.nomeUsuario}}</p>
       </div>
       <mat-form-field appearance="outline">
         <mat-label>Escreva o título da notícia</mat-label>
