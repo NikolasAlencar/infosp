@@ -17,6 +17,8 @@ export class NewPostComponent implements OnInit {
   arquivo: any;
   userData: UserData | undefined;
   urlImg = environment.urlImg;
+  cacheNewPost: any;
+  tiposPost = ['Alagamento', 'Desastre', 'Acidente', 'Transito', 'Paralisação']
   @Output() posted = new EventEmitter();
 
   constructor(private fb: FormBuilder, private gerenciaEstado: GerenciaEstadoService, private feedService: FeedService) { }
@@ -28,17 +30,19 @@ export class NewPostComponent implements OnInit {
   }
 
   public newPostForm = this.fb.group({
-    titulo: ['', [Validators.required, Validators.minLength(7)]],
+    titulo: [''],
     imagem: ['', []],
-    descricao: ['', [Validators.required, Validators.minLength(7)]]
+    descricao: ['', [Validators.required, Validators.minLength(7)]],
+    tipoPost: ['', [Validators.required]]
   })
 
   postar(){
     const formData = new FormData();
+    this.cacheNewPost = this.getPayload();
     formData.append('arquivo', this.arquivo);
-    formData.append('body', JSON.stringify(this.getPayload()))
+    formData.append('body', JSON.stringify(this.cacheNewPost))
     this.feedService.post(formData).subscribe({
-      next: () => this.posted.emit(),
+      next: () => this.posted.emit(this.cacheNewPost),
       error: (e) => console.log(e)
     })
   }
@@ -55,9 +59,11 @@ export class NewPostComponent implements OnInit {
 
   getPayloadPost(imgPost: number){
     return {
+      titulo: this.newPostForm.value.titulo,
+      descricao: this.newPostForm.value.descricao,
       nomeUsuario: this.userData?.nomeUsuario,
       imgUsuario: this.userData?.imgUsuario,
-      tipoPost: "",
+      tipoPost: this.newPostForm.value.tipoPost,
       imgPost,
       interacoes: 0,
       idPost: getIdUnico(),

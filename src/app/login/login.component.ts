@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { AuthorizationService } from "../authorization/authorization.service";
 import { ErrorService } from "../services/error.service";
 import { NavigateService } from "../services/navigate.service";
-import { NotificationService } from "../services/notification.service";
 import { GeolocationService } from "../services/geolocation.service";
 
 @Component({
@@ -17,7 +16,6 @@ export class LoginComponent implements OnInit {
     private navigate: NavigateService,
     private fb: FormBuilder,
     private errorService: ErrorService,
-    private notification: NotificationService,
     private geolocation: GeolocationService
   ) {}
 
@@ -59,11 +57,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.authService.logout();
     this.navigate.adicionaHistoria();
-
-    //TESTE NOTIFICATION
-    setTimeout(() => {
-      this.notification.showNotification();
-    }, 3000)
 
     //TESTE GEOLOCATION
     this.geolocation.getUserLocation();

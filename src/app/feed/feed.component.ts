@@ -6,6 +6,8 @@ import { ErrorService } from "../services/error.service";
 import { GerenciaEstadoService } from "../services/gerencia-estado.service";
 import { UserData } from "src/assets/model/UserData";
 import { environment } from "src/environments/environment";
+import { NotificationService } from "../services/notification.service";
+import { Post } from "./model/Post";
 
 @Component({
   selector: "app-feed",
@@ -14,11 +16,15 @@ import { environment } from "src/environments/environment";
 })
 export class FeedComponent implements OnInit {
 
-  cachePosts: any;
+  cachePosts!: Post;
   userData!: UserData
   urlImg = environment.urlImg;
 
-  constructor(private dialog: MatDialog, private feedService: FeedService, private errorService: ErrorService, private gerenciaEstado: GerenciaEstadoService) {}
+  constructor(private dialog: MatDialog,
+    private feedService: FeedService,
+    private errorService: ErrorService,
+    private gerenciaEstado: GerenciaEstadoService,
+    private notification: NotificationService) {}
 
   posts$: Observable<any> = this.feedService.getPosts().pipe(
     map((response: any) => response['data']),
@@ -47,7 +53,8 @@ export class FeedComponent implements OnInit {
     this.dialog.open(this.newPost)
   }
 
-  closeDialogs(){
+  closeDialogs(cacheNewPost: any){
+    this.notification.showNotification();
     this.dialog.closeAll()
   }
 

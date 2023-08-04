@@ -14,7 +14,7 @@
 </div>
 
 <ng-template #newPost>
-  <app-new-post (posted)="closeDialogs()"></app-new-post>
+  <app-new-post (posted)="closeDialogs($event)"></app-new-post>
 </ng-template>
 
 <ng-template #spinnerLoad>

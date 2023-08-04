@@ -6,6 +6,9 @@ export interface Post {
   imgPost: string,
   interacoes: number,
   comentarios: Comentario[]
+  titulo: string,
+  descricao: string,
+  postAberto?: boolean
 }
 
 interface Comentario {
