@@ -2,12 +2,12 @@
   <div class="primary" *ngIf="posts$ | async as posts; else spinnerLoad">
     <div class="newPost" (click)="openNewPost()">
       <mat-form-field appearance="outline">
-        <img [src]="urlImg + userData.imgUsuario + '.jpg'">
+        <img [src]="userData.imgUsuario ? urlImg + userData.imgUsuario + '.jpg' : defaultImg">
         <input matInput placeholder="Publicar uma nova notícia...">
         <mat-icon matSuffix>control_point</mat-icon>
       </mat-form-field>
     </div>
-    <app-post [posts]="posts" [cachePosts]="cachePosts"></app-post>
+    <app-post [cachePosts]="cachePosts"></app-post>
   </div>
 
   <p class="maisNoticias">Ver mais notícias</p>

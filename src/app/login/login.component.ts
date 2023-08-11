@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.authService.logout();
     this.navigate.adicionaHistoria();
-
     //TESTE GEOLOCATION
     this.geolocation.getUserLocation();
   }

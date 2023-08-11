@@ -8,6 +8,7 @@ import { UserData } from "src/assets/model/UserData";
 import { environment } from "src/environments/environment";
 import { NotificationService } from "../services/notification.service";
 import { Post } from "./model/Post";
+import { LoadingService } from "../services/loading.service";
 
 @Component({
   selector: "app-feed",
@@ -16,15 +17,17 @@ import { Post } from "./model/Post";
 })
 export class FeedComponent implements OnInit {
 
-  cachePosts!: Post;
+  cachePosts!: Post[];
   userData!: UserData
   urlImg = environment.urlImg;
+  defaultImg = environment.defaultUrlImg;
 
   constructor(private dialog: MatDialog,
     private feedService: FeedService,
     private errorService: ErrorService,
     private gerenciaEstado: GerenciaEstadoService,
-    private notification: NotificationService) {}
+    private notification: NotificationService,
+    private loading: LoadingService) {}
 
   posts$: Observable<any> = this.feedService.getPosts().pipe(
     map((response: any) => response['data']),
@@ -33,7 +36,8 @@ export class FeedComponent implements OnInit {
 
   ngOnInit(): void {
     this.posts$.subscribe(posts => {
-      this.cachePosts = posts
+      this.cachePosts = posts //remover após
+      this.gerenciaEstado.setCachePosts(this.cachePosts);
     })
 
     this.gerenciaEstado.userData$.subscribe(userData => {
@@ -55,7 +59,12 @@ export class FeedComponent implements OnInit {
 
   closeDialogs(cacheNewPost: any){
     this.notification.showNotification();
-    this.dialog.closeAll()
+    this.dialog.closeAll();
+    this.cachePosts.unshift(cacheNewPost.post);
+    setTimeout(() => {
+      this.gerenciaEstado.setCachePosts(this.cachePosts);
+      this.loading.hideLoader();
+    }, 2000)
   }
 
   openPost(){

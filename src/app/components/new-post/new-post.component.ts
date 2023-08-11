@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { FeedService } from "src/app/feed/services/feed.service";
 import { GerenciaEstadoService } from "src/app/services/gerencia-estado.service";
+import { LoadingService } from "src/app/services/loading.service";
 import { UserData } from "src/assets/model/UserData";
 import { getIdUnico } from "src/assets/util/idUnico";
 import { environment } from "src/environments/environment";
@@ -18,10 +19,11 @@ export class NewPostComponent implements OnInit {
   userData: UserData | undefined;
   urlImg = environment.urlImg;
   cacheNewPost: any;
+  defaultImg = environment.defaultUrlImg;
   tiposPost = ['Alagamento', 'Desastre', 'Acidente', 'Transito', 'Paralisação']
   @Output() posted = new EventEmitter();
 
-  constructor(private fb: FormBuilder, private gerenciaEstado: GerenciaEstadoService, private feedService: FeedService) { }
+  constructor(private fb: FormBuilder, private gerenciaEstado: GerenciaEstadoService, private feedService: FeedService, private loading: LoadingService) { }
 
   ngOnInit(): void {
     this.gerenciaEstado.userData$.subscribe(userData => {
@@ -37,13 +39,14 @@ export class NewPostComponent implements OnInit {
   })
 
   postar(){
+    this.loading.showLoader();
     const formData = new FormData();
     this.cacheNewPost = this.getPayload();
     formData.append('arquivo', this.arquivo);
     formData.append('body', JSON.stringify(this.cacheNewPost))
     this.feedService.post(formData).subscribe({
       next: () => this.posted.emit(this.cacheNewPost),
-      error: (e) => console.log(e)
+      error: (e) => this.loading.hideLoader()
     })
   }
 
@@ -65,6 +68,7 @@ export class NewPostComponent implements OnInit {
       imgUsuario: this.userData?.imgUsuario,
       tipoPost: this.newPostForm.value.tipoPost,
       imgPost,
+      dataPost: new Date(),
       interacoes: 0,
       idPost: getIdUnico(),
       postAberto: false,

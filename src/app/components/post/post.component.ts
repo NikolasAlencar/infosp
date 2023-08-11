@@ -8,7 +8,6 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class PostComponent implements OnInit {
 
-  @Input() posts: any;
   @Input() cachePosts: any;
   indexActivePost: number = 0;
 

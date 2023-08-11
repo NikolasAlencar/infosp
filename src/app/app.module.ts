@@ -20,11 +20,13 @@ import { SharedModule } from "./shared/shared.module";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MapaModule } from "./mapa/mapa.module";
 import { NewHomeModule } from "./new-home/new-home.module";
+import { LoadingModule } from "./components/loading/loading.module";
 
 @NgModule({
   declarations: [AppComponent, ErroGenericoComponent],
   imports: [
     BrowserModule,
+    LoadingModule,
     AppRoutingModule,
     RouterModule.forRoot([]),
     LoginModule,

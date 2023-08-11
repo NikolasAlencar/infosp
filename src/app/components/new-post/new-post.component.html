@@ -5,7 +5,7 @@
   <form [formGroup]="newPostForm" novalidate (ngSubmit)="postar()">
     <div class="body">
       <div class="info">
-        <img [src]="urlImg + userData?.imgUsuario + '.jpg'">
+        <img [src]="userData?.imgUsuario ?  urlImg + userData?.imgUsuario + '.jpg' : defaultImg">
         <p>{{userData?.nomeUsuario}}</p>
       </div>
       <mat-form-field appearance="outline">
