@@ -13,5 +13,6 @@ export interface Post {
 
 interface Comentario {
   imgUsuario: string,
-  mensagemComentario: string
+  mensagemComentario: string,
+  nomeUsuario: string
 }

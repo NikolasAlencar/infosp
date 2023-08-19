@@ -10,7 +10,7 @@
       </div>
       <span class="dots" (click)="handleOptions()">...
         <div class="options" *ngIf="posts[indexActivePost].postAberto">
-          <p>Excluir publicação</p>
+          <p (click)="removePost(posts[indexActivePost])">Excluir publicação</p>
           <p>Editar publicação</p>
           <p>Compartilhar publicação</p>
         </div>

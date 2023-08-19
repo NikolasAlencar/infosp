@@ -8,7 +8,7 @@
     </div>
     <span class="dots" (click)="handleOptions(index)">...
       <div class="options" *ngIf="cachePosts[index].postAberto">
-        <p>Excluir publicação</p>
+        <p (click)="removePost(post)">Excluir publicação</p>
         <p>Editar publicação</p>
         <p>Compartilhar publicação</p>
       </div>
@@ -50,5 +50,5 @@
 
 <!--ajustar-->
 <ng-template #viewPost>
-  <app-view-post [posts]="cachePosts" [indexActivePost]="indexActivePost"></app-view-post>
+  <app-view-post (removePostEmitter)="removePost($event)" [posts]="cachePosts" [indexActivePost]="indexActivePost"></app-view-post>
 </ng-template>

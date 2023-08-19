@@ -14,10 +14,14 @@ export class FeedService {
   constructor(private http: HttpClient) {}
 
   getPosts(){
-    return this.http.get<Observable<Post[]>>(`${URL}/get-posts`)
+    return this.http.get<Observable<Post[]>>(`${URL}/get-posts-mock`)
   }
 
   post(formData: any){
     return this.http.post(`${URL}/postar`, formData)
+  }
+
+  removePost(post: Post){
+    return this.http.post(`${URL}/remove-post`, {idPost: post.idPost})
   }
 }
