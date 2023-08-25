@@ -2,7 +2,7 @@
   <div class="person">
     <div class="info">
       <!--A imagem que precisará do perfil-->
-      <img [src]="post.imgUsuario">
+      <img [src]="util.getImg(post.imgUsuario)">
       <!--Nome do usuário-->
       <p>{{ post.nomeUsuario }}</p>
     </div>
@@ -18,7 +18,7 @@
   <p class="descriptionPost">{{ post.descricao }}</p>
   <div class="media" (click)="openPost(index)">
     <!--A imagem que precisará do post-->
-    <img [src]="post.imgPost">
+    <img [src]="util.getImg(post.imgPost)">
   </div>
   <div class="footer">
     <div class="interactions">
@@ -29,11 +29,14 @@
     </div>
     <!--Quantidade de comentários-->
     <div class="comments" *ngFor="let comentario of post.comentarios">
-      <img [src]="comentario.imgUsuario">
+      <img [src]="util.getImg(comentario.imgUsuario)">
       <mat-card>
         <mat-label>
           <!--A imagem que precisará do perfil-->
-          <p class="name">{{ comentario.nomeUsuario }}</p>
+          <div class="cabecalho">
+            <p class="name">{{ comentario.nomeUsuario }}</p>
+            <p (click)="delComment(post, newComment.value)">x</p>
+          </div>
           <!--Comentário-->
           <p class="comment">{{ comentario.mensagemComentario }}</p>
         </mat-label>
@@ -41,7 +44,8 @@
     </div>
     <div class="addComments">
       <mat-form-field appearance="outline">
-        <input matInput placeholder="Adicionar um comentário...">
+        <input #newComment matInput placeholder="Adicionar um comentário...">
+        <mat-icon matSuffix (click)="addComment(post, newComment.value)">send</mat-icon>
       </mat-form-field>
     </div>
   </div>
@@ -50,5 +54,5 @@
 
 <!--ajustar-->
 <ng-template #viewPost>
-  <app-view-post (removePostEmitter)="removePost($event)" [posts]="cachePosts" [indexActivePost]="indexActivePost"></app-view-post>
+  <app-view-post (removePostEmitter)="removePost($event)" (addCommentEmitter)="addComment($event, 'child')" [posts]="cachePosts" [indexActivePost]="indexActivePost"></app-view-post>
 </ng-template>

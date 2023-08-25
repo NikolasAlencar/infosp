@@ -2,7 +2,7 @@
   <div class="primary" *ngIf="posts$ | async as posts; else spinnerLoad">
     <div class="newPost" (click)="openNewPost()">
       <mat-form-field appearance="outline">
-        <img [src]="userData.imgUsuario ? urlImg + userData.imgUsuario + '.jpg' : defaultImg">
+        <img [src]="userData.imgUsuario ?  util.getImg(userData!.imgUsuario) : defaultImg">
         <input matInput placeholder="Publicar uma nova notícia...">
         <mat-icon matSuffix>control_point</mat-icon>
       </mat-form-field>

@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Post } from "src/app/feed/model/Post";
+import { FeedService } from "src/app/feed/services/feed.service";
+import { UtilService } from "src/app/services/util.service";
 
 @Component({
   selector: "app-view-post",
@@ -11,8 +13,9 @@ export class ViewPostComponent implements OnInit {
   @Input() posts: any;
   @Input() indexActivePost!: number;
   @Output() removePostEmitter = new EventEmitter();
+  @Output() addCommentEmitter = new EventEmitter();
 
-  constructor() {
+  constructor(public util: UtilService, private feedService: FeedService) {
   }
 
   ngOnInit(): void {
@@ -20,6 +23,14 @@ export class ViewPostComponent implements OnInit {
 
   removePost(post: Post){
     this.removePostEmitter.emit(post);
+  }
+
+  addComment(post: Post, newComment: string){
+    this.addCommentEmitter.emit({post, newComment});
+  }
+
+  delComment(post: Post, delComment: string){
+    this.feedService.delComment(post)
   }
 
   handleOptions(){

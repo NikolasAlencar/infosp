@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { FeedService } from "src/app/feed/services/feed.service";
 import { GerenciaEstadoService } from "src/app/services/gerencia-estado.service";
 import { LoadingService } from "src/app/services/loading.service";
+import { UtilService } from "src/app/services/util.service";
 import { UserData } from "src/assets/model/UserData";
 import { getIdUnico } from "src/assets/util/idUnico";
 import { environment } from "src/environments/environment";
@@ -23,7 +24,11 @@ export class NewPostComponent implements OnInit {
   tiposPost = ['Alagamento', 'Desastre', 'Acidente', 'Transito', 'Paralisação']
   @Output() posted = new EventEmitter();
 
-  constructor(private fb: FormBuilder, private gerenciaEstado: GerenciaEstadoService, private feedService: FeedService, private loading: LoadingService) { }
+  constructor(private fb: FormBuilder,
+    private gerenciaEstado: GerenciaEstadoService,
+    private feedService: FeedService,
+    private loading:LoadingService,
+    public util: UtilService) { }
 
   ngOnInit(): void {
     this.gerenciaEstado.userData$.subscribe(userData => {

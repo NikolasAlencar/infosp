@@ -9,6 +9,7 @@ import { environment } from "src/environments/environment";
 import { NotificationService } from "../services/notification.service";
 import { Post } from "./model/Post";
 import { LoadingService } from "../services/loading.service";
+import { UtilService } from "../services/util.service";
 
 @Component({
   selector: "app-feed",
@@ -27,7 +28,8 @@ export class FeedComponent implements OnInit {
     private errorService: ErrorService,
     private gerenciaEstado: GerenciaEstadoService,
     private notification: NotificationService,
-    private loading: LoadingService) {}
+    private loading: LoadingService,
+    public util: UtilService) {}
 
   posts$: Observable<any> = this.feedService.getPosts().pipe(
     map((response: any) => response['data']),

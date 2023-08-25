@@ -5,7 +5,7 @@
   <div class="post">
     <div class="person">
       <div class="info">
-        <img [src]="posts[indexActivePost].imgUsuario">
+        <img [src]="util.getImg(posts[indexActivePost].imgUsuario)">
         <p>{{ posts[indexActivePost].nomeUsuario }}</p>
       </div>
       <span class="dots" (click)="handleOptions()">...
@@ -19,7 +19,7 @@
     <p class="descriptionPost">{{ posts[indexActivePost].titulo }}</p>
     <p class="descriptionPost">{{ posts[indexActivePost].descricao }}</p>
     <div class="media">
-      <img [src]="posts[indexActivePost].imgPost">
+      <img [src]="util.getImg(posts[indexActivePost].imgPost)">
     </div>
     <div class="footer">
       <div class="interactions">
@@ -28,17 +28,21 @@
         <mat-icon>add_comment</mat-icon>
       </div>
       <div class="comments" *ngFor="let comentario of posts[indexActivePost].comentarios">
-        <img [src]="comentario.imgUsuario">
+        <img [src]="util.getImg(comentario.imgUsuario)">
         <mat-card>
           <mat-label>
-            <p class="name">{{ comentario.nomeUsuario }}</p>
+            <div class="cabecalho">
+              <p class="name">{{ comentario.nomeUsuario }}</p>
+              <p (click)="delComment(posts[indexActivePost], newComment.value)">x</p>
+            </div>
             <p class="comment">{{ comentario.mensagemComentario }}</p>
           </mat-label>
         </mat-card>
       </div>
       <div class="addComments">
         <mat-form-field appearance="outline">
-          <input matInput placeholder="Adicionar um comentário...">
+          <input #newComment matInput placeholder="Adicionar um comentário...">
+          <mat-icon matSuffix (click)="addComment(posts[indexActivePost], newComment.value)">send</mat-icon>
         </mat-form-field>
       </div>
     </div>

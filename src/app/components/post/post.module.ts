@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { PostComponent } from "./post.component";
 import { SharedModule } from "src/app/shared/shared.module";
 import { ViewPostModule } from "../view-post/view-post.module";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [PostComponent],
@@ -20,7 +21,8 @@ import { ViewPostModule } from "../view-post/view-post.module";
     MatButtonModule,
     MatRadioModule,
     MatProgressSpinnerModule,
-    ViewPostModule
+    ViewPostModule,
+    FormsModule
   ],
   exports: [PostComponent]
 })

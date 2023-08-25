@@ -89,6 +89,11 @@
   display: flex;
   margin-bottom: 10px;
 
+  .cabecalho{
+    display: flex;
+    justify-content: space-between;
+  }
+
   p{
     margin: 0;
   }

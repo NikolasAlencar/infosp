@@ -2,6 +2,11 @@ import { Component, Input, OnInit, TemplateRef, ViewChild } from "@angular/core"
 import { MatDialog } from "@angular/material/dialog";
 import { Post } from "src/app/feed/model/Post";
 import { FeedService } from "src/app/feed/services/feed.service";
+import { GerenciaEstadoService } from "src/app/services/gerencia-estado.service";
+import { UtilService } from "src/app/services/util.service";
+import { UserData } from "src/assets/model/UserData";
+import { getIdUnico } from "src/assets/util/idUnico";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-post",
@@ -16,15 +21,51 @@ export class PostComponent implements OnInit {
   @ViewChild('viewPost', { static: true })
   viewPost!: TemplateRef<any>
 
-  constructor(private dialog: MatDialog, private feedService: FeedService) {
+  userData!: UserData;
+  defaultImg = environment.defaultUrlImg;
+  urlImg = environment.urlImg;
+
+  constructor(private dialog: MatDialog,
+    private feedService: FeedService,
+    private gerenciaEstado: GerenciaEstadoService,
+    public util: UtilService) {
   }
 
   ngOnInit(): void {
+    this.gerenciaEstado.userData$.subscribe(userData => this.userData = userData)
   }
 
   openPost(index: number){
     this.indexActivePost = index;
     this.dialog.open(this.viewPost)
+  }
+
+  addComment(post: any, newComment: string){
+    if(newComment === 'child'){
+      post.post.comentarios.push(this.getBodyComment(post.newComment));
+      post = post.post
+    } else {
+      post.comentarios.push(this.getBodyComment(newComment));
+    }
+    this.feedService.addComment(post).subscribe({
+      next: () => {
+        console.log('Comentário adicionado com sucesso!')
+      },
+      error: (e) => post.pop()
+    })
+  }
+
+  delComment(post: Post, delComment: string){
+    this.feedService.delComment(post)
+  }
+
+  getBodyComment(newComment: string){
+    return {
+      nomeUsuario: this.userData.nomeUsuario,
+      imgUsuario: this.userData.imgUsuario || this.defaultImg,
+      mensagemComentario: newComment,
+      idComentario: getIdUnico()
+    }
   }
 
   removePost(post: Post){
