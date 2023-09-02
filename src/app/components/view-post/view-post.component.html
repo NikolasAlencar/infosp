@@ -33,7 +33,7 @@
           <mat-label>
             <div class="cabecalho">
               <p class="name">{{ comentario.nomeUsuario }}</p>
-              <p (click)="delComment(posts[indexActivePost], newComment.value)">x</p>
+              <p (click)="delComment(posts[indexActivePost], comentario)">x</p>
             </div>
             <p class="comment">{{ comentario.mensagemComentario }}</p>
           </mat-label>

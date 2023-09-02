@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Post } from "../model/Post";
+import { bodyReq } from "src/assets/util/bodyReq";
 
 const URL = environment.api
 
@@ -30,6 +31,6 @@ export class FeedService {
   }
 
   delComment(post: Post){
-    return this.http.post(`${URL}/remove-comentario`, {idPost: post.idPost})
+    return this.http.post(`${URL}/remove-comentario`, post)
   }
 }

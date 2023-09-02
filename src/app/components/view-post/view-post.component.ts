@@ -29,8 +29,10 @@ export class ViewPostComponent implements OnInit {
     this.addCommentEmitter.emit({post, newComment});
   }
 
-  delComment(post: Post, delComment: string){
-    this.feedService.delComment(post)
+  delComment(post: Post, delComment: any){
+    const indexComment = post.comentarios.findIndex(comentario => delComment.idComentario === comentario.idComentario);
+    post.comentarios.splice(indexComment, 1);
+    this.feedService.delComment(post).subscribe(response => console.log(response));
   }
 
   handleOptions(){

@@ -14,5 +14,6 @@ export interface Post {
 interface Comentario {
   imgUsuario: string,
   mensagemComentario: string,
-  nomeUsuario: string
+  nomeUsuario: string,
+  idComentario: string
 }
