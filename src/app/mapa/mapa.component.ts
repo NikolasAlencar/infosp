@@ -1,7 +1,8 @@
-import { Component, NgZone, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { EnviaMensagemService } from '../services/envia-mensagem.service';
 import { NavigateService } from '../services/navigate.service';
 import { MatDialog } from '@angular/material/dialog';
+import { GeolocationService } from '../services/geolocation.service';
 
 @Component({
   selector: 'app-mapa',
@@ -10,7 +11,15 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class MapaComponent implements OnInit {
 
-  constructor(private mensagemService: EnviaMensagemService, private navigate: NavigateService, private dialog: MatDialog) { }
+  latitude!: number;
+  longitude!: number;
+  zoom: number = 16;
+
+  constructor(private mensagemService: EnviaMensagemService,
+              private navigate: NavigateService,
+              private dialog: MatDialog,
+              private geoService: GeolocationService,
+              private enviaMensagem: EnviaMensagemService) { }
 
   favoritar() {
     this.isLogged() ? this.mensagemService.sucesso(`A rota foi favoritada com sucesso!`) : this.abrirOnboarding();
@@ -40,5 +49,11 @@ export class MapaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.geoService.getUserLocation()
+      .then(position => {
+        this.latitude = position.latitude;
+        this.longitude = position.longitude;
+      })
+      .catch(reason => this.enviaMensagem.sucesso(reason))
   }
 }

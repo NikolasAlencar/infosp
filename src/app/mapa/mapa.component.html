@@ -24,7 +24,9 @@
     <p class="favoritar" (click)="favoritar()">{{ isLogged() ? 'Favoritar rota' : 'Conectar-se' }}</p>
     <p (click)="voltarInicio()">Voltar ao inicio</p>
   </mat-card>
-  <agm-map [latitude]="51.678418" [longitude]="7.809007"></agm-map>
+  <agm-map [latitude]="latitude || -23.6659655" [longitude]="longitude || -46.7542932" [zoom]="zoom">
+    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+  </agm-map>
 </div>
 
 <ng-template #onboarding>
