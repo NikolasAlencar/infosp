@@ -10,8 +10,8 @@ import { NgxMaskModule } from "ngx-mask";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from '@angular/material/select';
-import { PostModule } from "../components/post/post.module";
-import { NewPostModule } from "../components/new-post/new-post.module";
+import { PostModule } from "./post/post.module";
+import { NewPostModule } from "./new-post/new-post.module";
 
 @NgModule({
   declarations: [FeedComponent],
