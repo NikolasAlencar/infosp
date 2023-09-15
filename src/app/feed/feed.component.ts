@@ -9,6 +9,7 @@ import { environment } from "src/environments/environment";
 import { NotificationService } from "../services/notification.service";
 import { Post } from "./model/Post";
 import { LoadingService } from "../services/loading.service";
+import { WebSocketService } from "../services/web-socket.service";
 import { UtilService } from "../services/util.service";
 
 @Component({
@@ -23,13 +24,30 @@ export class FeedComponent implements OnInit {
   urlImg = environment.urlImg;
   defaultImg = environment.defaultUrlImg;
 
+  content = '';
+  received: any;
+  sent: any;
+
   constructor(private dialog: MatDialog,
     private feedService: FeedService,
     private errorService: ErrorService,
     private gerenciaEstado: GerenciaEstadoService,
     private notification: NotificationService,
     private loading: LoadingService,
-    public util: UtilService) {}
+    private webSocketService: WebSocketService,
+    public util: UtilService) { }
+
+  sendMsg() {
+    let message = {
+      source: '',
+      content: ''
+    };
+    message.source = 'localhost';
+    message.content = this.content;
+
+    this.sent.push(message);
+    // this.WebSocketService.messages.next(message);
+  }
 
   posts$: Observable<any> = this.feedService.getPosts().pipe(
     map((response: any) => response['data']),
@@ -37,6 +55,11 @@ export class FeedComponent implements OnInit {
   )
 
   ngOnInit(): void {
+    // this.WebSocketService.messages.subscribe(msg => {
+    //   this.received.push(msg);
+    //   console.log("Response from websocket: " + msg);
+    // });
+
     this.posts$.subscribe(posts => {
       this.cachePosts = posts //remover após
       this.gerenciaEstado.setCachePosts(this.cachePosts);
