@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { SharedModule } from '../shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { environment } from 'src/environments/environment';
+import { AgmDirectionModule } from 'agm-direction';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { environment } from 'src/environments/environment';
     SharedModule,
     MatIconModule,
     MapaRoutingModule,
+    AgmDirectionModule,
     AgmCoreModule.forRoot({
       apiKey: environment.apiKeyGoogle
     }),
