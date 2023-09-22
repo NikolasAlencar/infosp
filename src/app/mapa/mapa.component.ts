@@ -4,6 +4,8 @@ import { NavigateService } from '../services/navigate.service';
 import { MatDialog } from '@angular/material/dialog';
 import { GeolocationService } from '../services/geolocation.service';
 import { GeocodingService } from '../services/geocoding.service';
+import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-mapa',
@@ -15,6 +17,12 @@ export class MapaComponent implements OnInit {
   latitude!: number;
   longitude!: number;
   zoom: number = 16;
+
+  startOptions: Subject<any[]> = new Subject<any[]>();
+  endOptions: Subject<any[]> = new Subject<any[]>();
+
+  startFormControl: FormControl = new FormControl();
+  endFormControl: FormControl = new FormControl();
 
   constructor(private mensagemService: EnviaMensagemService,
               private navigate: NavigateService,
@@ -50,6 +58,16 @@ export class MapaComponent implements OnInit {
     this.navigate.navegarParaInicio();
   }
 
+  setAutoComplete(formControl: FormControl, startOptions?: boolean){
+    formControl.valueChanges
+    .pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(valueChange => this.geocodingService.getGeocoding(valueChange))
+    )
+    .subscribe((location: any) => startOptions ? this.startOptions.next(location.results.splice(0, 4)) : this.endOptions.next(location.results.splice(0, 4)));
+  }
+
   ngOnInit(): void {
     this.geoService.getUserLocation()
       .then(position => {
@@ -58,10 +76,7 @@ export class MapaComponent implements OnInit {
       })
       .catch(reason => this.enviaMensagem.sucesso(reason))
 
-    setTimeout(() => {
-      //this.geocodingService.geocodeLatLng({ lat: -23.703192171473923, lng: -46.785444724173935 }).then(retorno => console.log(retorno))
-
-      //this.geocodingService.getLocation('Rua santa sofia').subscribe(value => console.log(value))
-    }, 1000)
+    this.setAutoComplete(this.startFormControl, true);
+    this.setAutoComplete(this.endFormControl);
   }
 }

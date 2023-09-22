@@ -4,19 +4,39 @@
     <div class="body">
       <p>
         <mat-icon matSuffix>gps_fixed</mat-icon>
-        <mat-form-field>
+        <mat-form-field class="example-full-width">
           <mat-label>Ponto de partida</mat-label>
-          <input matInput placeholder="Digite aqui o ponto de partida">
+          <input type="text"
+                 placeholder="Digite aqui o ponto de partida"
+                 aria-label="Number"
+                 matInput
+                 [formControl]="startFormControl"
+                 [matAutocomplete]="auto">
           <mat-icon matSuffix>youtube_searched_for</mat-icon>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of startOptions | async" [value]="option">
+              {{option.formatted_address}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
       </p>
 
       <p>
         <mat-icon matSuffix>place</mat-icon>
-        <mat-form-field>
+        <mat-form-field class="example-full-width">
           <mat-label>Destino</mat-label>
-          <input matInput placeholder="Digite aqui o destino">
+          <input type="text"
+                 placeholder="Digite aqui o destino"
+                 aria-label="Number"
+                 matInput
+                 [formControl]="endFormControl"
+                 [matAutocomplete]="auto">
           <mat-icon matSuffix>youtube_searched_for</mat-icon>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of endOptions | async" [value]="option">
+              {{option.formatted_address}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
       </p>
     </div>
@@ -42,3 +62,4 @@
     <p (click)="registrar(); fecharOnboarding()">Registrar-se</p>
   </div>
 </ng-template>
+
