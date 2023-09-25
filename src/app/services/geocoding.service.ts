@@ -27,11 +27,25 @@ export class GeocodingService {
     return this.http.get<GeocoderResponse>(url);
   }
 
+  getDistanceMatrix(route: any): Observable<any> {
+    const matrix = new google.maps.DistanceMatrixService();
+    return new Observable(observable=>{
+      matrix.getDistanceMatrix({
+          origins: [new google.maps.LatLng(route.origin.lat, route.origin.lng)],
+          destinations: [new google.maps.LatLng(route.destination.lat, route.destination.lng)],
+          travelMode: google.maps.TravelMode.DRIVING,
+      }, (response) => {
+        observable.next(response);
+        observable.complete();
+      });
+    });
+  }
+
   getGeocoding(valueChange: any) {
     return new Observable(observable => {
       this.getLocation(valueChange)
       .pipe(
-        switchMap((location: any) => this.geocodeLatLng(location.results[0].geometry.location))
+        switchMap((location: any) => this.geocodeLatLng(location?.results[0]?.geometry?.location))
       )
       .subscribe({
         next: (geocoding) => {
