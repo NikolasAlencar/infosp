@@ -53,6 +53,16 @@ export class RegisterComponent implements OnInit {
     this.navigate.navegarParaInicio();
   }
 
+  verificaErro(optionName: string) {
+    const erros: any = {
+      required: 'Campo invalido!',
+      minLength: 'Campo invalido!',
+      jaExiste: `${optionName} já existe!`,
+      erroConsulta: 'Houve um erro na consulta!'
+    }
+    return erros[Object.keys(this.registrar.get(optionName)?.errors as Object)[0]]
+  }
+
   // adiciona os filtros de erro
   adicionarFiltros(
     abstractControl: AbstractControl,

@@ -28,9 +28,7 @@
             registrar.get(option.name)?.touched
           "
         >
-          {{ registrar.get(option.name)?.errors?.['required'] ? 'Campo invalido!' : '' }}
-          {{ registrar.get(option.name)?.errors?.['jaExiste'] ? option.name + ' já existe!' : '' }}
-          {{ registrar.get(option.name)?.errors?.['erroConsulta'] ? 'Houve um erro na consulta!' : '' }}
+          {{ verificaErro(option.name) }}
         </mat-error>
         <div>
           <button
