@@ -27,8 +27,10 @@
             !registrar.get(option.name)?.valid &&
             registrar.get(option.name)?.touched
           "
-          >Campo invalido!
-          {{ registrar.get(option.name)?.errors?.['jaExiste'] ? option.name + ' já existe!`' : '' }}
+        >
+          {{ registrar.get(option.name)?.errors?.['required'] ? 'Campo invalido!' : '' }}
+          {{ registrar.get(option.name)?.errors?.['jaExiste'] ? option.name + ' já existe!' : '' }}
+          {{ registrar.get(option.name)?.errors?.['erroConsulta'] ? 'Houve um erro na consulta!' : '' }}
         </mat-error>
         <div>
           <button
