@@ -2,29 +2,54 @@
   <mat-card>
     <p class="title">Inserir dados da viagem</p>
     <div class="body">
-      <p>
+      <div class="origin">
         <mat-icon matSuffix>gps_fixed</mat-icon>
-        <mat-form-field>
+        <mat-form-field class="example-full-width">
           <mat-label>Ponto de partida</mat-label>
-          <input matInput placeholder="Digite aqui o ponto de partida">
+          <input type="text"
+                 placeholder="Digite aqui o ponto de partida"
+                 aria-label="Number"
+                 matInput
+                 [formControl]="startFormControl"
+                 [matAutocomplete]="startAutoComplete">
           <mat-icon matSuffix>youtube_searched_for</mat-icon>
+          <mat-autocomplete #startAutoComplete="matAutocomplete">
+            <mat-option *ngFor="let option of startOptions | async;" [value]="option.formatted_address">
+              {{option.formatted_address}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
-      </p>
+      </div>
 
-      <p>
+      <div class="destination">
         <mat-icon matSuffix>place</mat-icon>
-        <mat-form-field>
+        <mat-form-field class="example-full-width">
           <mat-label>Destino</mat-label>
-          <input matInput placeholder="Digite aqui o destino">
+          <input type="text"
+                 placeholder="Digite aqui o destino"
+                 aria-label="Number"
+                 matInput
+                 [formControl]="endFormControl"
+                 [matAutocomplete]="endAutoComplete">
           <mat-icon matSuffix>youtube_searched_for</mat-icon>
+          <mat-autocomplete #endAutoComplete="matAutocomplete">
+            <mat-option *ngFor="let option of endOptions | async" [value]="option.formatted_address">
+              {{option.formatted_address}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
-      </p>
+      </div>
     </div>
+    <p *ngIf="duration"><strong>Duração: </strong> {{duration}}</p>
+    <p *ngIf="distance"><strong>Distância: </strong> {{distance}}</p>
     <hr>
-    <p class="favoritar" (click)="favoritar()">{{ isLogged() ? 'Favoritar rota' : 'Conectar-se' }}</p>
+    <p class="favoritar" (click)="handleRoute()">{{ isLogged() ? 'Traçar rota' : 'Conectar-se' }}</p>
     <p (click)="voltarInicio()">Voltar ao inicio</p>
   </mat-card>
-  <agm-map [latitude]="51.678418" [longitude]="7.809007"></agm-map>
+  <agm-map [latitude]="latitude || -23.6659655" [longitude]="longitude || -46.7542932" [zoom]="zoom">
+    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+    <agm-direction [origin]="origin" [destination]="destination"></agm-direction>
+  </agm-map>
 </div>
 
 <ng-template #onboarding>
@@ -39,3 +64,4 @@
     <p (click)="registrar(); fecharOnboarding()">Registrar-se</p>
   </div>
 </ng-template>
+
