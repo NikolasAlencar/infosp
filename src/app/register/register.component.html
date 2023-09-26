@@ -27,8 +27,8 @@
             !registrar.get(option.name)?.valid &&
             registrar.get(option.name)?.touched
           "
-          >Campo invalido!
-          {{ registrar.get(option.name)?.errors?.['jaExiste'] ? option.name + ' já existe!`' : '' }}
+        >
+          {{ verificaErro(option.name) }}
         </mat-error>
         <div>
           <button
