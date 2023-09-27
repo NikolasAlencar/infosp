@@ -10,11 +10,13 @@ import { NotificationService } from "../services/notification.service";
 import { Post } from "./model/Post";
 import { LoadingService } from "../services/loading.service";
 import { UtilService } from "../services/util.service";
+import { WebSocketService } from "../services/web-socket.service";
 
 @Component({
   selector: "app-feed",
   templateUrl: "./feed.component.html",
-  styleUrls: ["./feed.component.scss"]
+  styleUrls: ["./feed.component.scss"],
+  providers: [WebSocketService]
 })
 export class FeedComponent implements OnInit {
 
@@ -23,13 +25,18 @@ export class FeedComponent implements OnInit {
   urlImg = environment.urlImg;
   defaultImg = environment.defaultUrlImg;
 
+  content = '';
+  received: any;
+  sent: any;
+
   constructor(private dialog: MatDialog,
     private feedService: FeedService,
     private errorService: ErrorService,
     private gerenciaEstado: GerenciaEstadoService,
     private notification: NotificationService,
     private loading: LoadingService,
-    public util: UtilService) {}
+    public util: UtilService,
+    private webSocketService: WebSocketService) { }
 
   posts$: Observable<any> = this.feedService.getPosts().pipe(
     map((response: any) => response['data']),
@@ -37,6 +44,8 @@ export class FeedComponent implements OnInit {
   )
 
   ngOnInit(): void {
+    this.webSocketService.setupSocketConnection();
+
     this.posts$.subscribe(posts => {
       this.cachePosts = posts //remover após
       this.gerenciaEstado.setCachePosts(this.cachePosts);

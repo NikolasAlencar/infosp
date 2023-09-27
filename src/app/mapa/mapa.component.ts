@@ -40,8 +40,8 @@ export class MapaComponent implements OnInit {
       const origin = this.getOriginOrDestination(this.startFormControl.value, this.startOptions.getValue());
       const destination = this.getOriginOrDestination(this.endFormControl.value, this.endOptions.getValue());
       if(origin.formatted_address && destination.formatted_address){
-        this.origin = {lat: origin.geometry.location.lat(), lng: origin.geometry.location.lng()};
-        this.destination = {lat: destination.geometry.location.lat(), lng: destination.geometry.location.lng()};
+        this.setOriginLatLng(origin.geometry.location.lat(), origin.geometry.location.lng());
+        this.setDestinationLatLng(destination.geometry.location.lat(), destination.geometry.location.lng());
         this.setMatrix();
       }
     } else{
@@ -60,6 +60,14 @@ export class MapaComponent implements OnInit {
 
   isLogged(){
     return sessionStorage.getItem('TOKEN');
+  }
+
+  setOriginLatLng(lat: number, lng: number){
+    this.origin = {lat, lng};
+  }
+
+  setDestinationLatLng(lat: number, lng: number){
+    this.destination = {lat, lng};
   }
 
   setMatrix(){
