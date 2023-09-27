@@ -9,13 +9,14 @@ import { environment } from "src/environments/environment";
 import { NotificationService } from "../services/notification.service";
 import { Post } from "./model/Post";
 import { LoadingService } from "../services/loading.service";
-import { WebSocketService } from "../services/web-socket.service";
 import { UtilService } from "../services/util.service";
+import { WebSocketService } from "../services/web-socket.service";
 
 @Component({
   selector: "app-feed",
   templateUrl: "./feed.component.html",
-  styleUrls: ["./feed.component.scss"]
+  styleUrls: ["./feed.component.scss"],
+  providers: [WebSocketService]
 })
 export class FeedComponent implements OnInit {
 
@@ -34,20 +35,8 @@ export class FeedComponent implements OnInit {
     private gerenciaEstado: GerenciaEstadoService,
     private notification: NotificationService,
     private loading: LoadingService,
-    private webSocketService: WebSocketService,
-    public util: UtilService) { }
-
-  sendMsg() {
-    let message = {
-      source: '',
-      content: ''
-    };
-    message.source = 'localhost';
-    message.content = this.content;
-
-    this.sent.push(message);
-    // this.WebSocketService.messages.next(message);
-  }
+    public util: UtilService,
+    private webSocketService: WebSocketService) { }
 
   posts$: Observable<any> = this.feedService.getPosts().pipe(
     map((response: any) => response['data']),
@@ -55,10 +44,7 @@ export class FeedComponent implements OnInit {
   )
 
   ngOnInit(): void {
-    // this.WebSocketService.messages.subscribe(msg => {
-    //   this.received.push(msg);
-    //   console.log("Response from websocket: " + msg);
-    // });
+    this.webSocketService.setupSocketConnection();
 
     this.posts$.subscribe(posts => {
       this.cachePosts = posts //remover após
