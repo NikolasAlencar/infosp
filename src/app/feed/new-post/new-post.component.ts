@@ -73,7 +73,7 @@ export class NewPostComponent implements OnInit {
       imgUsuario: this.userData?.imgUsuario,
       tipoPost: this.newPostForm.value.tipoPost,
       imgPost,
-      dataPost: new Date(),
+      dataPost: new Date().toLocaleDateString(),
       interacoes: 0,
       idPost: getIdUnico(),
       postAberto: false,
