@@ -46,6 +46,12 @@ export class FeedComponent implements OnInit {
   ngOnInit(): void {
     this.webSocketService.setupSocketConnection();
 
+    this.gerenciaEstado.lastNotification$.subscribe(notificacao => {
+      if(notificacao.descricao) {
+        this.notification.showNotification(notificacao)
+      }
+    });
+
     this.posts$.subscribe(posts => {
       this.cachePosts = posts //remover após
       this.gerenciaEstado.setCachePosts(this.cachePosts);
@@ -69,7 +75,6 @@ export class FeedComponent implements OnInit {
   }
 
   closeDialogs(cacheNewPost: any){
-    this.notification.showNotification();
     this.dialog.closeAll();
     this.cachePosts.unshift(cacheNewPost.post);
     setTimeout(() => {

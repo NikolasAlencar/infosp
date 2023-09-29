@@ -13,6 +13,7 @@ export class GerenciaEstadoService {
   urlImg = environment.urlImg;
   userData$ = new BehaviorSubject<UserData>({} as UserData);
   cachePosts$ = new BehaviorSubject<any>({});
+  lastNotification$ = new BehaviorSubject<any>({});
 
   setUserData(userData: UserData){
     this.userData$.next(userData);
@@ -20,5 +21,9 @@ export class GerenciaEstadoService {
 
   setCachePosts(cachePosts: any){
     this.cachePosts$.next(cachePosts);
+  }
+
+  setNotification(lastNotification: any){
+    this.lastNotification$.next(lastNotification);
   }
 }

@@ -6,6 +6,8 @@ import { GeolocationService } from '../services/geolocation.service';
 import { GeocodingService } from '../services/geocoding.service';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { NotificationService } from '../services/notification.service';
+import { GerenciaEstadoService } from '../services/gerencia-estado.service';
 
 @Component({
   selector: 'app-mapa',
@@ -33,7 +35,9 @@ export class MapaComponent implements OnInit {
               private dialog: MatDialog,
               private geoService: GeolocationService,
               private enviaMensagem: EnviaMensagemService,
-              private geocodingService: GeocodingService) { }
+              private geocodingService: GeocodingService,
+              private notificationService: NotificationService,
+              private gerenciaEstado: GerenciaEstadoService) { }
 
   handleRoute() {
     if(this.isLogged()){
@@ -109,6 +113,12 @@ export class MapaComponent implements OnInit {
         this.longitude = position.longitude;
       })
       .catch(reason => this.enviaMensagem.sucesso(reason))
+
+    this.gerenciaEstado.lastNotification$.subscribe(notificacao => {
+      if(notificacao.descricao) {
+        this.notificationService.showNotification(notificacao)
+      }
+    });
 
     this.filterAutoComplete(this.endFormControl);
     this.filterAutoComplete(this.startFormControl, true);
