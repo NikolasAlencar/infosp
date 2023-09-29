@@ -1,5 +1,4 @@
 export interface OptionSidenav {
-  name: string;
   desc: string;
   src: string;
   path?: string;
