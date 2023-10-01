@@ -50,7 +50,10 @@ export class NewPostComponent implements OnInit {
     formData.append('arquivo', this.arquivo);
     formData.append('body', JSON.stringify(this.cacheNewPost))
     this.feedService.post(formData).subscribe({
-      next: () => this.posted.emit(this.cacheNewPost),
+      next: () => {
+        this.posted.emit(this.cacheNewPost);
+        this.gerenciaEstado.setCacheNotification(this.cacheNewPost);
+      },
       error: (e) => this.loading.hideLoader()
     })
   }

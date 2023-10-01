@@ -13,7 +13,7 @@ export class GerenciaEstadoService {
   urlImg = environment.urlImg;
   userData$ = new BehaviorSubject<UserData>({} as UserData);
   cachePosts$ = new BehaviorSubject<any>({});
-  cacheNotification$ = new Subject<any>();
+  cacheNotification$ = new BehaviorSubject<any>({});
   lastNotification$ = new Subject<any>();
 
   setUserData(userData: UserData){

@@ -33,7 +33,6 @@ export class FeedComponent implements OnInit {
     private feedService: FeedService,
     private errorService: ErrorService,
     private gerenciaEstado: GerenciaEstadoService,
-    private notification: NotificationService,
     private loading: LoadingService,
     public util: UtilService) { }
 
@@ -44,8 +43,6 @@ export class FeedComponent implements OnInit {
   )
 
   ngOnInit(): void {
-    this.gerenciaEstado.lastNotification$.subscribe(notificacao => this.notification.showNotification(notificacao));
-
     this.gerenciaEstado.userData$.subscribe(userData => {
       this.userData = userData
     });

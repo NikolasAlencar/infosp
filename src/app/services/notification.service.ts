@@ -1,13 +1,18 @@
 import { Injectable, NgZone } from '@angular/core';
 import { NavigateService } from './navigate.service';
 import { UtilService } from './util.service';
+import { GerenciaEstadoService } from './gerencia-estado.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
-  constructor(private zone: NgZone, private navigate: NavigateService, private util: UtilService) { }
+  constructor(private zone: NgZone, private navigate: NavigateService, private util: UtilService, private gerenciaEstado: GerenciaEstadoService) {
+    this.gerenciaEstado.lastNotification$.subscribe(notificacao => {
+      if(this.gerenciaEstado.cacheNotification$.getValue()?.post?.idPost !== notificacao.idPost) this.showNotification(notificacao)
+    });
+  }
 
   showNotification(notificationBody?: any){
     const notification = new Notification(notificationBody.titulo, this.verificaGenerico(notificationBody));
