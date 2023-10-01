@@ -114,11 +114,7 @@ export class MapaComponent implements OnInit {
       })
       .catch(reason => this.enviaMensagem.sucesso(reason))
 
-    this.gerenciaEstado.lastNotification$.subscribe(notificacao => {
-      if(notificacao.descricao) {
-        this.notificationService.showNotification(notificacao)
-      }
-    });
+    this.gerenciaEstado.lastNotification$.subscribe(notificacao => this.notificationService.showNotification(notificacao));
 
     this.filterAutoComplete(this.endFormControl);
     this.filterAutoComplete(this.startFormControl, true);

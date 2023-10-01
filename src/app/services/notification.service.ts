@@ -12,7 +12,9 @@ export class NotificationService {
   showNotification(notificationBody?: any){
     const notification = new Notification(notificationBody.titulo, this.verificaGenerico(notificationBody));
     notification.onclick = () => {
-      this.zone.run(() => {if(this.isLogged()) this.navigate.navegarParaFeed()});
+      this.zone.run(() => {
+        if(this.isLogged()) this.navigate.navegarParaFeed();
+      });
     }
   }
 

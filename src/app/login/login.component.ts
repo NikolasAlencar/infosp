@@ -44,12 +44,13 @@ export class LoginComponent implements OnInit {
       .login(user).subscribe({
         next: () => {
           this.navigate.navegarParaFeed();
+          this.loading = false;
         },
         error: () => {
-          this.errorService.erroConsulta("Erro ao consultar o usuário informado, verifique os dados e tente novamente!")
+          this.errorService.erroConsulta("Erro ao consultar o usuário informado, verifique os dados e tente novamente!");
+          this.loading = false;
         }
       })
-      this.loading = false;
   }
 
   ngOnInit(): void {

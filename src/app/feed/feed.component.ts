@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { FeedService } from "./services/feed.service";
-import { Observable, catchError, map } from "rxjs";
+import { Observable, catchError, map, tap } from "rxjs";
 import { ErrorService } from "../services/error.service";
 import { GerenciaEstadoService } from "../services/gerencia-estado.service";
 import { UserData } from "src/assets/model/UserData";
@@ -35,27 +35,16 @@ export class FeedComponent implements OnInit {
     private gerenciaEstado: GerenciaEstadoService,
     private notification: NotificationService,
     private loading: LoadingService,
-    public util: UtilService,
-    private webSocketService: WebSocketService) { }
+    public util: UtilService) { }
 
   posts$: Observable<any> = this.feedService.getPosts().pipe(
     map((response: any) => response['data']),
+    tap(response => this.cachePosts = response),
     catchError(async () => this.errorService.trazerErro())
   )
 
   ngOnInit(): void {
-    this.webSocketService.setupSocketConnection();
-
-    this.gerenciaEstado.lastNotification$.subscribe(notificacao => {
-      if(notificacao.descricao) {
-        this.notification.showNotification(notificacao)
-      }
-    });
-
-    this.posts$.subscribe(posts => {
-      this.cachePosts = posts //remover após
-      this.gerenciaEstado.setCachePosts(this.cachePosts);
-    })
+    this.gerenciaEstado.lastNotification$.subscribe(notificacao => this.notification.showNotification(notificacao));
 
     this.gerenciaEstado.userData$.subscribe(userData => {
       this.userData = userData

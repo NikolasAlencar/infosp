@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { UserData } from 'src/assets/model/UserData';
 import { environment } from 'src/environments/environment';
 
@@ -13,7 +13,8 @@ export class GerenciaEstadoService {
   urlImg = environment.urlImg;
   userData$ = new BehaviorSubject<UserData>({} as UserData);
   cachePosts$ = new BehaviorSubject<any>({});
-  lastNotification$ = new BehaviorSubject<any>({});
+  cacheNotification$ = new Subject<any>();
+  lastNotification$ = new Subject<any>();
 
   setUserData(userData: UserData){
     this.userData$.next(userData);
@@ -25,5 +26,9 @@ export class GerenciaEstadoService {
 
   setNotification(lastNotification: any){
     this.lastNotification$.next(lastNotification);
+  }
+
+  setCacheNotification(cacheNotification: any){
+    this.cacheNotification$.next(cacheNotification);
   }
 }
