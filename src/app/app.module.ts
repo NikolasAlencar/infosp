@@ -11,7 +11,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HeaderModule } from "./header/header.module";
 import { MatSidenavModule } from "@angular/material/sidenav";
-import { NgxMaskModule } from "ngx-mask";
 import { HttpClientModule } from "@angular/common/http";
 import { RegisterModule } from "./register/register.module";
 import { MatDialogModule } from "@angular/material/dialog";
@@ -43,10 +42,7 @@ import { LoadingModule } from "./components/loading/loading.module";
     SharedModule,
     MapaModule,
     NewHomeModule,
-    MatSnackBarModule,
-    NgxMaskModule.forRoot({
-      dropSpecialCharacters: false
-    })
+    MatSnackBarModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: "pt-BR" }],
   bootstrap: [AppComponent]

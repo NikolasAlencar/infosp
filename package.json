@@ -25,7 +25,6 @@
     "@types/socket.io-client": "^3.0.0",
     "agm-direction": "^0.8.10",
     "lodash": "^4.17.21",
-    "ngx-mask": "^13.1.0",
     "require": "^2.4.20",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

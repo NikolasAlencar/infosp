@@ -37,7 +37,7 @@ export class AuthorizationInteceptor implements HttpInterceptor {
     const authService: AuthorizationService = this.injector.get<
       AuthorizationService
     >(AuthorizationService as Type<AuthorizationService>);
-    const token = authService.getAuthenticatedUser().token;
+    const token = authService.getAuthenticatedUser().access_token;
     return request.clone({
       headers: request.headers.set('x-access-token', token),
     });

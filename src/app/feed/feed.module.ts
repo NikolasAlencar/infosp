@@ -6,7 +6,6 @@ import { FeedComponent } from "./feed.component";
 import { SharedModule } from "../shared/shared.module";
 import { MatButtonModule } from "@angular/material/button";
 import { MatRadioModule } from "@angular/material/radio";
-import { NgxMaskModule } from "ngx-mask";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from '@angular/material/select';
@@ -25,8 +24,7 @@ import { NewPostModule } from "./new-post/new-post.module";
     MatRadioModule,
     MatProgressSpinnerModule,
     NewPostModule,
-    PostModule,
-    NgxMaskModule.forChild()
+    PostModule
   ],
   exports: [FeedComponent]
 })
