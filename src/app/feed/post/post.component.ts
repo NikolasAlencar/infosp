@@ -16,6 +16,7 @@ import { environment } from "src/environments/environment";
 export class PostComponent implements OnInit {
 
   @Input() cachePosts!: Post[];
+  @Input() selectedPost: any;
   indexActivePost: number = 0;
 
   @ViewChild('viewPost', { static: true })
@@ -32,6 +33,9 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const clickNotification = this.cachePosts.findIndex(cachePost => cachePost.idPost === this.selectedPost.idPost);
+    if(clickNotification >= 0) this.openPost(clickNotification);
+
     this.gerenciaEstado.userData$.subscribe(userData => this.userData = userData)
   }
 

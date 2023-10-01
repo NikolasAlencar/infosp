@@ -31,9 +31,7 @@ export class NewPostComponent implements OnInit {
     public util: UtilService) { }
 
   ngOnInit(): void {
-    this.gerenciaEstado.userData$.subscribe(userData => {
-      this.userData = userData
-    });
+    this.gerenciaEstado.userData$.subscribe(userData => this.userData = userData);
   }
 
   public newPostForm = this.fb.group({

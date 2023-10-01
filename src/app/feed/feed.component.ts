@@ -25,7 +25,7 @@ export class FeedComponent implements OnInit {
   userData!: UserData
   urlImg = environment.urlImg;
   defaultImg = environment.defaultUrlImg;
-  selectedNotification = this.router.getCurrentNavigation()?.extras;
+  selectedPost = this.router.getCurrentNavigation()?.extras;
   activeIndex = 0;
 
   constructor(private dialog: MatDialog,
@@ -43,11 +43,7 @@ export class FeedComponent implements OnInit {
   )
 
   ngOnInit(): void {
-    console.log(this.selectedNotification)
-
-    this.gerenciaEstado.userData$.subscribe(userData => {
-      this.userData = userData
-    });
+    this.gerenciaEstado.userData$.subscribe(userData => this.userData = userData);
   }
 
   @ViewChild('newPost', { static: true })

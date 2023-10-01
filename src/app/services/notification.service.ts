@@ -13,10 +13,10 @@ export class NotificationService {
   showNotification(notificationBody?: any){
     const observer = this.gerenciaEstado.lastNotification$.subscribe(notificacao => {
       if(this.gerenciaEstado.cacheNotification$.getValue()?.post?.idPost !== notificacao.idPost){
-        const notification = new Notification(notificationBody.titulo, this.verificaGenerico(notificationBody));
+        const notification = new Notification(notificationBody.titulo || 'Notificação genérica!', this.verificaGenerico(notificationBody));
         notification.onclick = () => {
           this.zone.run(() => {
-            if(this.isLogged()) this.navigate.navegarParaFeed(this.gerenciaEstado.cacheNotification$.getValue());
+            if(this.isLogged()) this.navigate.navegarParaFeed(this.verificaGenerico(notificationBody));
           });
         }
       }
@@ -30,6 +30,7 @@ export class NotificationService {
 
   verificaGenerico(notificationBody: any){
     return {
+      idPost: notificationBody.idPost || 999999999,
       body: notificationBody.descricao || 'Notificação genérica!',
       icon: notificationBody.imgPost ?  this.util.getImg(notificationBody.imgPost) : '../../assets/icons/aviao.jpg'
     }
