@@ -11,6 +11,7 @@ import { Post } from "./model/Post";
 import { LoadingService } from "../services/loading.service";
 import { UtilService } from "../services/util.service";
 import { WebSocketService } from "../services/web-socket.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-feed",
@@ -24,17 +25,16 @@ export class FeedComponent implements OnInit {
   userData!: UserData
   urlImg = environment.urlImg;
   defaultImg = environment.defaultUrlImg;
-
-  content = '';
-  received: any;
-  sent: any;
+  selectedNotification = this.router.getCurrentNavigation()?.extras;
+  activeIndex = 0;
 
   constructor(private dialog: MatDialog,
     private feedService: FeedService,
     private errorService: ErrorService,
     private gerenciaEstado: GerenciaEstadoService,
     private loading: LoadingService,
-    public util: UtilService) { }
+    public util: UtilService,
+    private router: Router) { }
 
   posts$: Observable<any> = this.feedService.getPosts().pipe(
     map((response: any) => response['data']),
@@ -43,6 +43,8 @@ export class FeedComponent implements OnInit {
   )
 
   ngOnInit(): void {
+    console.log(this.selectedNotification)
+
     this.gerenciaEstado.userData$.subscribe(userData => {
       this.userData = userData
     });

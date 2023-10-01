@@ -8,19 +8,20 @@ import { GerenciaEstadoService } from './gerencia-estado.service';
 })
 export class NotificationService {
 
-  constructor(private zone: NgZone, private navigate: NavigateService, private util: UtilService, private gerenciaEstado: GerenciaEstadoService) {
-    this.gerenciaEstado.lastNotification$.subscribe(notificacao => {
-      if(this.gerenciaEstado.cacheNotification$.getValue()?.post?.idPost !== notificacao.idPost) this.showNotification(notificacao)
-    });
-  }
+  constructor(private zone: NgZone, private navigate: NavigateService, private util: UtilService, private gerenciaEstado: GerenciaEstadoService) { }
 
   showNotification(notificationBody?: any){
-    const notification = new Notification(notificationBody.titulo, this.verificaGenerico(notificationBody));
-    notification.onclick = () => {
-      this.zone.run(() => {
-        if(this.isLogged()) this.navigate.navegarParaFeed();
-      });
-    }
+    const observer = this.gerenciaEstado.lastNotification$.subscribe(notificacao => {
+      if(this.gerenciaEstado.cacheNotification$.getValue()?.post?.idPost !== notificacao.idPost){
+        const notification = new Notification(notificationBody.titulo, this.verificaGenerico(notificationBody));
+        notification.onclick = () => {
+          this.zone.run(() => {
+            if(this.isLogged()) this.navigate.navegarParaFeed(this.gerenciaEstado.cacheNotification$.getValue());
+          });
+        }
+      }
+    })
+    observer.unsubscribe();
   }
 
   isLogged(){
@@ -35,16 +36,8 @@ export class NotificationService {
   }
 
   notifyMe() {
-    if (!("Notification" in window)) {
-      alert("This browser does not support desktop notification");
-    } else if (Notification.permission === "granted") {
-      this.showNotification();
-    } else if (Notification.permission !== "denied") {
-      Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-          this.showNotification();
-        }
-      });
+    if (Notification.permission !== "denied") {
+      Notification.requestPermission();
     }
   }
 }

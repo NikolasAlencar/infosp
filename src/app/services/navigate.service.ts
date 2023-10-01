@@ -17,8 +17,8 @@ export class NavigateService {
     this.router.navigate(["/home"], params);
   }
 
-  navegarParaFeed() {
-    this.router.navigate(["/feed"]);
+  navegarParaFeed(params?: any) {
+    this.router.navigate(["/feed"], params);
   }
 
   navegarParaInicio() {

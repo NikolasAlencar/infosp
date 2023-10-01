@@ -4,6 +4,8 @@ import { filter } from "rxjs";
 import { Header } from "./header/model/Header";
 import { LoadingService } from "./services/loading.service";
 import { WebSocketService } from "./services/web-socket.service";
+import { GerenciaEstadoService } from "./services/gerencia-estado.service";
+import { NotificationService } from "./services/notification.service";
 
 @Component({
   selector: "app-root",
@@ -16,7 +18,7 @@ export class AppComponent implements OnInit {
 
   header!: Header;
 
-  constructor(public router: Router, private loadingService: LoadingService, private socket: WebSocketService) {
+  constructor(public router: Router, private loadingService: LoadingService, private socket: WebSocketService, private gerenciaEstado: GerenciaEstadoService, private notification: NotificationService) {
     this.router.events.pipe(
       filter(event => event instanceof ActivationStart)).subscribe((event: any) => {
         const temHeader = event?.snapshot?.routeConfig?.data?.header
@@ -34,6 +36,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.socket.setupSocketConnection();
+
+    this.gerenciaEstado.lastNotification$.subscribe(notificacao => {
+      this.notification.showNotification(notificacao)
+    });
 
     this.loadingService.loading$.subscribe(hideOrShow => {
       this.loading = hideOrShow;

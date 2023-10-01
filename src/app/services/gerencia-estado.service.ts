@@ -14,7 +14,7 @@ export class GerenciaEstadoService {
   userData$ = new BehaviorSubject<UserData>({} as UserData);
   cachePosts$ = new BehaviorSubject<any>({});
   cacheNotification$ = new BehaviorSubject<any>({});
-  lastNotification$ = new Subject<any>();
+  lastNotification$ = new BehaviorSubject<any>({});
 
   setUserData(userData: UserData){
     this.userData$.next(userData);
