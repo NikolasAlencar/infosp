@@ -16,4 +16,12 @@ export class NewHomeComponent implements OnInit {
   registrar() {
     this.navigate.navegarParaRegistro();
   }
+
+  isLogged(){
+    return sessionStorage.getItem('TOKEN');
+  }
+
+  navegar(){
+    this.isLogged() ? this.navigate.navegarParaFeed() : this.navigate.navegarParaLogin();
+  }
 }

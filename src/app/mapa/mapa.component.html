@@ -14,7 +14,7 @@
                  [matAutocomplete]="startAutoComplete">
           <mat-icon matSuffix>youtube_searched_for</mat-icon>
           <mat-autocomplete #startAutoComplete="matAutocomplete">
-            <mat-option *ngFor="let option of startOptions | async;" [value]="option.formatted_address">
+            <mat-option *ngFor="let option of startOptions$ | async;" [value]="option.formatted_address">
               {{option.formatted_address}}
             </mat-option>
           </mat-autocomplete>
@@ -33,7 +33,7 @@
                  [matAutocomplete]="endAutoComplete">
           <mat-icon matSuffix>youtube_searched_for</mat-icon>
           <mat-autocomplete #endAutoComplete="matAutocomplete">
-            <mat-option *ngFor="let option of endOptions | async" [value]="option.formatted_address">
+            <mat-option *ngFor="let option of endOptions$ | async" [value]="option.formatted_address">
               {{option.formatted_address}}
             </mat-option>
           </mat-autocomplete>
@@ -47,8 +47,10 @@
     <p (click)="voltarInicio()">Voltar ao inicio</p>
   </mat-card>
   <agm-map [latitude]="latitude || -23.6659655" [longitude]="longitude || -46.7542932" [zoom]="zoom">
-    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-    <agm-direction [origin]="origin" [destination]="destination"></agm-direction>
+    <div *ngFor="let marker of markers$ | async">
+      <agm-marker *ngIf="marker.localizacao" [latitude]="marker.localizacao.latitude" [longitude]="marker.localizacao.longitude"></agm-marker>
+    </div>
+    <agm-direction [markerOptions]="directionOptions" [renderOptions]="{suppressMarkers: true}" [origin]="origin" [destination]="destination"></agm-direction>
   </agm-map>
 </div>
 

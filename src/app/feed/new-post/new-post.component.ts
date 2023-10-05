@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { FeedService } from "src/app/feed/services/feed.service";
+import { GeolocationService } from "src/app/services/geolocation.service";
 import { GerenciaEstadoService } from "src/app/services/gerencia-estado.service";
 import { LoadingService } from "src/app/services/loading.service";
 import { UtilService } from "src/app/services/util.service";
@@ -28,7 +29,8 @@ export class NewPostComponent implements OnInit {
     private gerenciaEstado: GerenciaEstadoService,
     private feedService: FeedService,
     private loading:LoadingService,
-    public util: UtilService) { }
+    public util: UtilService,
+    private geoService: GeolocationService) { }
 
   ngOnInit(): void {
     this.gerenciaEstado.userData$.subscribe(userData => this.userData = userData);
@@ -42,31 +44,34 @@ export class NewPostComponent implements OnInit {
   })
 
   postar(){
-    this.loading.showLoader();
-    const formData = new FormData();
-    this.cacheNewPost = this.getPayload();
-    formData.append('arquivo', this.arquivo);
-    formData.append('body', JSON.stringify(this.cacheNewPost))
-    this.feedService.post(formData).subscribe({
-      next: () => {
-        this.posted.emit(this.cacheNewPost);
-        this.gerenciaEstado.setCacheNotification(this.cacheNewPost);
-      },
-      error: (e) => this.loading.hideLoader()
-    })
+    this.geoService.getUserLocation()
+      .subscribe(localizacao => {
+        this.loading.showLoader();
+        const formData = new FormData();
+        this.cacheNewPost = this.getPayload(localizacao);
+        formData.append('arquivo', this.arquivo);
+        formData.append('body', JSON.stringify(this.cacheNewPost))
+        this.feedService.post(formData).subscribe({
+          next: () => {
+            this.posted.emit(this.cacheNewPost);
+            this.gerenciaEstado.setCacheNotification(this.cacheNewPost);
+          },
+          error: (e) => this.loading.hideLoader()
+        })
+      })
   }
 
-  getPayload(){
+  getPayload(localizacao: any){
     const nomeImagem = getIdUnico();
     return {
-      post: this.getPayloadPost(nomeImagem),
+      post: this.getPayloadPost(nomeImagem, localizacao),
       titulo: this.newPostForm.value.titulo,
       descricao: this.newPostForm.value.descricao,
       nomeImagem
     }
   }
 
-  getPayloadPost(imgPost: number){
+  getPayloadPost(imgPost: number, localizacao: any){
     return {
       titulo: this.newPostForm.value.titulo,
       descricao: this.newPostForm.value.descricao,
@@ -78,7 +83,8 @@ export class NewPostComponent implements OnInit {
       interacoes: 0,
       idPost: getIdUnico(),
       postAberto: false,
-      comentarios: [ ]
+      comentarios: [],
+      localizacao
     }
   }
 

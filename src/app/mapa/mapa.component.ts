@@ -1,13 +1,12 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { EnviaMensagemService } from '../services/envia-mensagem.service';
 import { NavigateService } from '../services/navigate.service';
 import { MatDialog } from '@angular/material/dialog';
-import { GeolocationService } from '../services/geolocation.service';
 import { GeocodingService } from '../services/geocoding.service';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { NotificationService } from '../services/notification.service';
-import { GerenciaEstadoService } from '../services/gerencia-estado.service';
+import { DirectionOptions } from './constants/DirectionOptions';
+import { MapaService } from './services/mapa.service';
+import { GeolocationService } from '../services/geolocation.service';
 
 @Component({
   selector: 'app-mapa',
@@ -20,29 +19,29 @@ export class MapaComponent implements OnInit {
   longitude!: number;
   origin!: google.maps.LatLngLiteral;
   destination!: google.maps.LatLngLiteral;
-  timeOfTravel: any;
   distance?: string;
   duration?: string;
+  directionOptions = DirectionOptions;
   zoom: number = 16;
 
-  startOptions: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-  endOptions: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  startOptions$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  endOptions$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
   startFormControl: FormControl = new FormControl();
   endFormControl: FormControl = new FormControl();
 
+  markers$ = this.mapaService.getNotifications();
+
   constructor(private navigate: NavigateService,
               private dialog: MatDialog,
-              private geoService: GeolocationService,
-              private enviaMensagem: EnviaMensagemService,
               private geocodingService: GeocodingService,
-              private notificationService: NotificationService,
-              private gerenciaEstado: GerenciaEstadoService) { }
+              private mapaService: MapaService,
+              private geoService: GeolocationService) { }
 
   handleRoute() {
     if(this.isLogged()){
-      const origin = this.getOriginOrDestination(this.startFormControl.value, this.startOptions.getValue());
-      const destination = this.getOriginOrDestination(this.endFormControl.value, this.endOptions.getValue());
+      const origin = this.getOriginOrDestination(this.startFormControl.value, this.startOptions$.getValue());
+      const destination = this.getOriginOrDestination(this.endFormControl.value, this.endOptions$.getValue());
       if(origin.formatted_address && destination.formatted_address){
         this.setOriginLatLng(origin.geometry.location.lat(), origin.geometry.location.lng());
         this.setDestinationLatLng(destination.geometry.location.lat(), destination.geometry.location.lng());
@@ -102,17 +101,16 @@ export class MapaComponent implements OnInit {
         switchMap(valueChange => this.geocodingService.getGeocoding(valueChange))
       )
       .subscribe({
-        next: (location: any) => start ? this.startOptions.next(location.results.splice(0, 4)) : this.endOptions.next(location.results.splice(0, 4)),
+        next: (location: any) => start ? this.startOptions$.next(location.results.splice(0, 4)) : this.endOptions$.next(location.results.splice(0, 4)),
       });
   }
 
   ngOnInit(): void {
     this.geoService.getUserLocation()
-      .then(position => {
-        this.latitude = position.latitude;
-        this.longitude = position.longitude;
+      .subscribe(localizacao => {
+        this.latitude = localizacao.latitude;
+        this.longitude = localizacao.longitude;
       })
-      .catch(reason => this.enviaMensagem.sucesso(reason))
 
     this.filterAutoComplete(this.endFormControl);
     this.filterAutoComplete(this.startFormControl, true);

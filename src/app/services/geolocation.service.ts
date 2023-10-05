@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 interface Position {
   latitude: number;
@@ -13,14 +14,19 @@ export class GeolocationService {
   constructor() { }
 
   getUserLocation() {
-    return new Promise<Position>((resolve, reject) => {
+    return new Observable<Position>(observable => {
       if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(position => {
-          resolve({ latitude: position.coords.latitude, longitude: position.coords.longitude});
-        }, () => reject('Permita o acesso a localização para uma melhor experiência!'),
+          observable.next({ latitude: position.coords.latitude, longitude: position.coords.longitude});
+          observable.complete();
+        }, () => {
+          observable.error('Permita o acesso a localização para uma melhor experiência!');
+          observable.complete();
+        },
         {enableHighAccuracy: true});
       } else{
-        reject('Erro ao obter localização!');
+        observable.error('Erro ao obter localização!');
+        observable.complete();
       }
     })
   }

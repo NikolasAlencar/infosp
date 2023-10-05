@@ -38,7 +38,10 @@ export class FeedComponent implements OnInit {
 
   posts$: Observable<any> = this.feedService.getPosts().pipe(
     map((response: any) => response['data']),
-    tap(response => this.cachePosts = response),
+    tap(response => {
+      this.cachePosts = response;
+      this.gerenciaEstado.setCachePosts(response);
+    }),
     catchError(async () => this.errorService.trazerErro())
   )
 
