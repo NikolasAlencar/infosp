@@ -10,6 +10,6 @@ export class EnviaEmailService {
   constructor(private http: HttpClient) { }
 
   enviaEmail(corpoEmail: any){
-    return this.http.post(environment.apiSendEmail, corpoEmail)
+    return this.http.post(`${environment.api}/enviar-email`, corpoEmail)
   }
 }
