@@ -47,11 +47,8 @@ export class NewPostComponent implements OnInit {
     this.geoService.getUserLocation()
       .subscribe(localizacao => {
         this.loading.showLoader();
-        const formData = new FormData();
         this.cacheNewPost = this.getPayload(localizacao);
-        formData.append('arquivo', this.arquivo);
-        formData.append('body', JSON.stringify(this.cacheNewPost))
-        this.feedService.post(formData).subscribe({
+        this.feedService.post(this.getFormData()).subscribe({
           next: () => {
             this.posted.emit(this.cacheNewPost);
             this.gerenciaEstado.setCacheNotification(this.cacheNewPost);
@@ -62,13 +59,20 @@ export class NewPostComponent implements OnInit {
   }
 
   getPayload(localizacao: any){
-    const nomeImagem = getIdUnico();
+    const nomeImagem = this.arquivo && getIdUnico();
     return {
       post: this.getPayloadPost(nomeImagem, localizacao),
       titulo: this.newPostForm.value.titulo,
       descricao: this.newPostForm.value.descricao,
       nomeImagem
     }
+  }
+
+  getFormData(){
+    const formData = new FormData();
+    formData.append('arquivo', this.arquivo);
+    formData.append('body', JSON.stringify(this.cacheNewPost))
+    return formData
   }
 
   getPayloadPost(imgPost: number, localizacao: any){
