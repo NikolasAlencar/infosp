@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PostComponent } from './post.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('PostComponent', () => {
   let component: PostComponent;
@@ -8,7 +10,8 @@ describe('PostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PostComponent ]
+      declarations: [ PostComponent ],
+      imports: [ MatDialogModule, HttpClientTestingModule ]
     })
     .compileComponents();
   });

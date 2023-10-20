@@ -14,7 +14,7 @@ export class GeocodingService {
     let geocoder = new google.maps.Geocoder();
 
     return new Observable<GeocoderResponse>(observable => {
-      geocoder.geocode({ 'location': location }, (results, status) => {
+      geocoder.geocode({ 'location': location }, (results: any, status: any) => {
         const response = new GeocoderResponse(status, results);
         observable.next(response);
         observable.complete();
@@ -34,7 +34,7 @@ export class GeocodingService {
           origins: [new google.maps.LatLng(route.origin.lat, route.origin.lng)],
           destinations: [new google.maps.LatLng(route.destination.lat, route.destination.lng)],
           travelMode: google.maps.TravelMode.DRIVING,
-      }, (response) => {
+      }, (response: any) => {
         observable.next(response);
         observable.complete();
       });

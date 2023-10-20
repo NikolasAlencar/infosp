@@ -5,21 +5,21 @@
   <div class="post">
     <div class="person">
       <div class="info">
-        <img [src]="util.getImg(posts[indexActivePost].imgUsuario)">
-        <p>{{ posts[indexActivePost].nomeUsuario }}</p>
+        <img [src]="util.getImg(posts[indexActivePost]?.imgUsuario)">
+        <p>{{ posts[indexActivePost]?.nomeUsuario }}</p>
       </div>
       <span class="dots" (click)="handleOptions()">...
-        <div class="options" *ngIf="posts[indexActivePost].postAberto">
+        <div class="options" *ngIf="posts[indexActivePost]?.postAberto">
           <p (click)="removePost(posts[indexActivePost])">Excluir publicação</p>
           <p>Editar publicação</p>
           <p>Compartilhar publicação</p>
         </div>
       </span>
     </div>
-    <p class="descriptionPost">{{ posts[indexActivePost].titulo }}</p>
-    <p class="descriptionPost">{{ posts[indexActivePost].descricao }}</p>
+    <p class="descriptionPost">{{ posts[indexActivePost]?.titulo }}</p>
+    <p class="descriptionPost">{{ posts[indexActivePost]?.descricao }}</p>
     <div class="media">
-      <img [src]="util.getImg(posts[indexActivePost].imgPost)">
+      <img [src]="util.getImg(posts[indexActivePost]?.imgPost)">
     </div>
     <div class="footer">
       <div class="interactions">
@@ -27,12 +27,12 @@
         <mat-icon>favorite</mat-icon>
         <mat-icon>add_comment</mat-icon>
       </div>
-      <div class="comments" *ngFor="let comentario of posts[indexActivePost].comentarios">
+      <div class="comments" *ngFor="let comentario of posts[indexActivePost]?.comentarios">
         <img [src]="util.getImg(comentario.imgUsuario)">
         <mat-card>
           <mat-label>
             <div class="cabecalho">
-              <p class="name">{{ comentario.nomeUsuario }}</p>
+              <p class="name">{{ comentario?.nomeUsuario }}</p>
               <p (click)="delComment(posts[indexActivePost], comentario)">x</p>
             </div>
             <p class="comment">{{ comentario.mensagemComentario }}</p>

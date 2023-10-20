@@ -10,7 +10,7 @@ import { UtilService } from "src/app/services/util.service";
 })
 export class ViewPostComponent implements OnInit {
 
-  @Input() posts: any;
+  @Input() posts: Post[] = [];
   @Input() indexActivePost!: number;
   @Output() removePostEmitter = new EventEmitter();
   @Output() addCommentEmitter = new EventEmitter();

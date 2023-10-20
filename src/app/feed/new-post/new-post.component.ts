@@ -22,7 +22,7 @@ export class NewPostComponent implements OnInit {
   urlImg = environment.urlImg;
   cacheNewPost: any;
   defaultImg = environment.defaultUrlImg;
-  tiposPost = ['Alagamento', 'Desastre', 'Acidente', 'Transito', 'Paralisação']
+  tiposPost: String[] = ['Alagamento', 'Desastre', 'Acidente', 'Transito', 'Paralisação']
   @Output() posted = new EventEmitter();
 
   constructor(private fb: FormBuilder,

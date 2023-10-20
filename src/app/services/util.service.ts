@@ -10,7 +10,7 @@ export class UtilService {
 
   constructor() { }
 
-  getImg(nameImg: string){
+  getImg(nameImg: string | undefined){
     return this.urlImg + nameImg + '.jpg'
   }
 }
