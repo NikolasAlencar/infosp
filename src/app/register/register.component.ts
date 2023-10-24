@@ -12,6 +12,7 @@ import { RegisterService } from './services/register.service';
 import * as _ from 'lodash';
 import { randomNum } from 'src/assets/util/randomNum';
 import { ErrorService } from '../services/error.service';
+import { getIdUnico } from 'src/assets/util/idUnico';
 
 @Component({
   selector: 'app-register',
@@ -30,6 +31,8 @@ export class RegisterComponent implements OnInit {
     usuario: ['', [Validators.required, Validators.minLength(7)]],
     senha: ['', [Validators.required, Validators.minLength(7)]],
     email: ['', [Validators.required, Validators.email]],
+    nome: ['', [Validators.required, Validators.minLength(7)]],
+    imagem: ['', []]
   });
 
   // pega as opções
@@ -38,6 +41,8 @@ export class RegisterComponent implements OnInit {
     .pipe(catchError(async () => this.errorService.trazerErro()));
 
   emailEnviado: boolean = false;
+  uploadedFile = false;
+  arquivo: any;
 
   // gera um código, envia o email e navega pro ultimo passo
   cadastrar() {
@@ -45,8 +50,15 @@ export class RegisterComponent implements OnInit {
     this.service
       .enviaEmailRegister(this.registrar.get('email')?.value, this.service.cod)
       .subscribe(() => {
-        this.navigate.navegarParaLastStep(this.registrar.value);
+        this.navigate.navegarParaLastStep(this.getFormData());
       });
+  }
+
+  getFormData(){
+    const formData = new FormData();
+    formData.append('arquivo', this.arquivo);
+    formData.append('body', JSON.stringify(this.getPayload()))
+    return formData
   }
 
   voltarInicio() {
@@ -86,6 +98,23 @@ export class RegisterComponent implements OnInit {
           abstractControl.setErrors({ erroConsulta: true });
         },
       });
+  }
+
+  onFileChange(event: any) {
+    const arquivos = (event.target as HTMLInputElement).files;
+    this.arquivo = arquivos![0];
+    this.uploadedFile = true;
+  }
+
+  getPayload(){
+    const imgUsuario = this.arquivo && getIdUnico();
+    return {
+      usuario: this.registrar.value.usuario,
+      senha: this.registrar.value.senha,
+      email: this.registrar.value.email,
+      nomeUsuario: this.registrar.value.nome,
+      imgUsuario,
+    }
   }
 
   tokenValid(): any {

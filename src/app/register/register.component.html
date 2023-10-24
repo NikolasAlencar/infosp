@@ -44,6 +44,18 @@
           </button>
         </div>
       </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Adicionar imagem de usuário (opcional)</ng-template>
+         <div class="addArquivo">
+          <label for="arquivo" [ngStyle]="uploadedFile ? {'color': 'black'} : {'color': 'white'}">
+            <mat-icon>insert_drive_file</mat-icon>
+            <span>{{ uploadedFile ? 'Arquivo adicionado com sucesso!' : 'Adicionar arquivo'}}</span>
+          </label>
+          <input formControlName="imagem" type="file" name="arquivo" id="arquivo" (change)="onFileChange($event)">
+        </div>
+      </mat-step>
+
       <mat-step>
         <ng-template matStepLabel>Finalizar</ng-template>
         <p [ngClass]="registrar.valid ? '' : 'error'">

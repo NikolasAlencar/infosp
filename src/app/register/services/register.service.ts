@@ -29,8 +29,8 @@ export class RegisterService {
     return this.http.post(`${environment.api}/obter/user/email`, {email}, {headers})
   }
 
-  addUser(user: any): Observable<any> {
-    return this.http.post(`${environment.api}/adicionar/novo-usuario`, {user, title: 'new-user'}, {headers})
+  addUser(newUser: any): Observable<any> {
+    return this.http.post(`${environment.api}/adicionar/novo-usuario`, newUser, {headers})
   }
 
   public enviaEmailRegister(destinatario: string, cod: number){

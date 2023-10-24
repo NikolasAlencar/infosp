@@ -25,3 +25,23 @@ form{
   color: red
 }
 
+.addArquivo{
+  span{
+    margin-top: 5px;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    min-height: 150px;
+    width: 100%;
+    background-color: #33333331;
+    color: #FFF;
+    align-items: center;
+    justify-content: center;
+  }
+}
