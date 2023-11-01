@@ -1,18 +1,12 @@
-# MyProject.V2
+# InfoSP MVP
 
-Olá, esse projeto foi feito usando Angular 13.
+Olá, esse projeto foi feito usando Angular 13 com intuito de atender ao meu TCC.
 
-Para utiliza-lo, primeiramente baixe a api de enviar emails(caso queira usa-la) e instale as dependências com npm install.
+O InfoSP se baseia em uma rede social para noticias, por ser uma versão inicial só tem algumas das principais funcionalidades como notificações, postagens (visualização, criação, delete, comentários com suas respectivas funções), autenticação, testes unitários, upload de imagens e por ai vai...
 
-## Rodando o projeto
+Para utiliza-lo, primeiramente baixe e rode a API principal do projeto em https://github.com/NikolasAlencar/infospAPI, estou usando muitas bibliotecas e ferramentas que necessitam de credenciais então para usar tanto o front quanto a api você ira precisar das suas próprias credenciais.
 
- - Digite ng serve no terminal do projeto e vá para "http://localhost:4200/".
- - Digite npm run start-auth no terminal do backend para roda-lo na porta "http://localhost:3000/", possibilitando que a api faça todas as requisições e manipulação de tokens.
- - Digite npm-start no projeto do repositório "https://github.com/NikolasAlencar/enviar-email" para que o projeto principal use-o nos envios de emails, ele rodará na porta "http://localhost:3030/" - Não esqueça de configurar corretamente a porta da url na api e no projeto.
-
- * O aplicativo automaticamente reconhecerá qualquer mudança no código e atualizará.
-
-## Caso precise de ajuda me contate    
+## Caso precise de ajuda ou tenha dúvidas me contate    
   
 	Linkedin -> www.linkedin.com/in/nikolas-alencar-234474182/ 
 		ou 
@@ -24,7 +18,13 @@ Para utiliza-lo, primeiramente baixe a api de enviar emails(caso queira usa-la) 
  - Angular 13
  - RXJS
  - Angular Material
- - Json-server
  - Nodemailer
- - Body-parser
- - Ngx-mask
+ - Firebase
+ - JWT
+ - WebSocket
+ - Ts-node
+ - Multer
+ - Lodash
+ - Agm (Core)
+ - Agm (Direction)
+
