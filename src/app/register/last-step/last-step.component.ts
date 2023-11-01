@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { map, distinctUntilChanged, filter, catchError } from "rxjs";
+import { map, distinctUntilChanged, filter } from "rxjs";
 import { AuthorizationService } from "src/app/authorization/authorization.service";
 import { EnviaMensagemService } from "src/app/services/envia-mensagem.service";
 import { ErrorService } from "src/app/services/error.service";
@@ -9,6 +9,7 @@ import { NavigateService } from "src/app/services/navigate.service";
 import { User } from "src/assets/model/User";
 import { randomNum } from "src/assets/util/randomNum";
 import { RegisterService } from "../services/register.service";
+import { GerenciaEstadoService } from "src/app/services/gerencia-estado.service";
 
 @Component({
   selector: "app-last-step",
@@ -23,7 +24,8 @@ export class LastStepComponent implements OnInit {
               private navigate: NavigateService,
               private mensagemService: EnviaMensagemService,
               private erroService: ErrorService,
-              private authService: AuthorizationService) {}
+              private authService: AuthorizationService,
+              private gerenciaEstado: GerenciaEstadoService) {}
 
   registrar = this.fb.group({ codigo: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(6)]] });
 
@@ -37,8 +39,10 @@ export class LastStepComponent implements OnInit {
   cadastrar(): void{
     this.service.addUser(this.user.params).subscribe({
       next: (token) => {
+        const userData = this.getUserData(this.user.params);
         this.authService.saveUserInfo(token);
-        this.mensagemService.sucesso(`O usuário ${this.user.params.usuario} foi criado!`);
+        this.gerenciaEstado.setUserData(userData);
+        this.mensagemService.sucesso(`O usuário ${userData?.usuario} foi criado!`);
         this.navigate.navegarParaFeed();
       },
       error: () => this.erroService.trazerErro()
@@ -52,10 +56,19 @@ export class LastStepComponent implements OnInit {
 
   // limpa o input, gera um código e envia pelo email
   reiniciar(){
+    const userData = this.getUserData(this.user.params);
     this.registrar.get('codigo')?.setValue('')
     this.service.cod = randomNum(100000, 999999)
-    this.service.enviaEmailRegister(this.user.params.email, this.service.cod)
+    this.service.enviaEmailRegister(userData?.email, this.service.cod)
     .subscribe(() => this.acabouTempo = false)
+  }
+
+  getUserData(user: any){
+    try{
+      return JSON.parse(user.get('body'))
+    }catch(e){
+      return user
+    }
   }
 
   // gera erro e não habilita o botão caso o código não esteja correto

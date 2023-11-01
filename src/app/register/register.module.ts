@@ -9,9 +9,10 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { LastStepComponent } from "./last-step/last-step.component";
 import { TimerComponent } from "../components/timer/timer.component";
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatIconModule } from "@angular/material/icon";
 
 @NgModule({
   declarations: [RegisterComponent, LastStepComponent, TimerComponent],
-  imports: [CommonModule, RegisterRoutingModule, SharedModule, MatStepperModule, MatProgressSpinnerModule, MatCheckboxModule]
+  imports: [CommonModule, RegisterRoutingModule, SharedModule, MatStepperModule, MatProgressSpinnerModule, MatCheckboxModule, MatIconModule]
 })
 export class RegisterModule {}
