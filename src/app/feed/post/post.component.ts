@@ -15,7 +15,7 @@ import { environment } from "src/environments/environment";
 })
 export class PostComponent implements OnInit {
 
-  @Input() cachePosts!: Post[];
+  @Input() cachePosts: Post[] = [] as Post[];
   @Input() selectedPost: any;
   indexActivePost: number = 0;
 

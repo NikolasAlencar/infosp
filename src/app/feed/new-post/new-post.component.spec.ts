@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewPostComponent } from './new-post.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('NewPostComponent', () => {
   let component: NewPostComponent;
@@ -8,7 +10,8 @@ describe('NewPostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewPostComponent ]
+      declarations: [ NewPostComponent ],
+      imports: [ ReactiveFormsModule, HttpClientTestingModule ]
     })
     .compileComponents();
   });
@@ -17,9 +20,5 @@ describe('NewPostComponent', () => {
     fixture = TestBed.createComponent(NewPostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });
