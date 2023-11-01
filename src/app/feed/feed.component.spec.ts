@@ -5,6 +5,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FeedService } from './services/feed.service';
+import { map } from 'rxjs';
 
 describe('FeedComponent', () => {
   let component: FeedComponent;
@@ -13,7 +15,12 @@ describe('FeedComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ FeedComponent ],
-      imports: [ MatDialogModule, HttpClientTestingModule, RouterTestingModule, MatSnackBarModule ]
+      imports: [
+        MatDialogModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MatSnackBarModule
+      ]
     })
     .compileComponents();
   });
@@ -27,4 +34,19 @@ describe('FeedComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Posts carregados com sucesso', () => {
+    const service = TestBed.inject(FeedService);
+    service.getPosts().pipe(
+      map((response: any) => response['data'])
+    )
+    .subscribe(posts => {
+      expect(Array.isArray(posts)).toBe(true)
+    })
+  })
+
+  it('Erro na chamada', () => {
+    const service = TestBed.inject(FeedService);
+    service.getPosts().subscribe({error: (res) => expect(res.status).toEqual(500)})
+  })
 });

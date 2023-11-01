@@ -28,7 +28,7 @@ export class AuthorizationService {
   }
 
   // pega o token e salva as informações
-  login(user: UserLogin): Observable<object | User> {
+  login(user: any): Observable<object | User> {
     const loginSubject = new Subject<User>();
     this.requestToken(user).subscribe({
       next: (response: any) => {
