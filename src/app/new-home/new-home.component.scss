@@ -63,8 +63,18 @@
     flex-direction: column;
   }
 
+  .logar{
+    text-align: center;
+  }
+
   hr{
     margin: 1rem 0 !important;
+  }
+}
+
+@media (max-height: 880px){
+  .title{
+    margin-top: 15.625rem;
   }
 }
 
