@@ -6,7 +6,7 @@
     *ngIf="options$ | async as options; else spinnerLoad"
   >
     <div class="criar-conta">
-      Criar conta <img src="../../assets/icons/adicionar-usuario.png" />
+      Criar conta <img src="assets/icons/adicionar-usuario.png" />
     </div>
     <mat-stepper orientation="vertical" [linear]="false" #stepper>
       <mat-step *ngFor="let option of options">

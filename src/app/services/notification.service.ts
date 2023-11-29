@@ -32,7 +32,7 @@ export class NotificationService {
     return {
       idPost: notificationBody.idPost || 999999999,
       body: notificationBody.descricao || 'Notificação genérica!',
-      icon: notificationBody.imgPost ?  this.util.getImg(notificationBody.imgPost) : '../../assets/icons/aviao.jpg'
+      icon: notificationBody.imgPost ?  this.util.getImg(notificationBody.imgPost) : 'assets/icons/aviao.jpg'
     }
   }
 

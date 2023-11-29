@@ -20,6 +20,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MapaModule } from "./mapa/mapa.module";
 import { NewHomeModule } from "./new-home/new-home.module";
 import { LoadingModule } from "./components/loading/loading.module";
+import { APP_BASE_HREF, HashLocationStrategy, LocationStrategy } from "@angular/common";
 
 @NgModule({
   declarations: [AppComponent, ErroGenericoComponent],
@@ -44,7 +45,11 @@ import { LoadingModule } from "./components/loading/loading.module";
     NewHomeModule,
     MatSnackBarModule
   ],
-  providers: [{ provide: LOCALE_ID, useValue: "pt-BR" }],
+  providers: [
+    { provide: LOCALE_ID, useValue: "pt-BR" },
+    { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
