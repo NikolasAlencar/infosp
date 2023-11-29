@@ -2,8 +2,8 @@ import { Environment } from "src/assets/model/Environment";
 
 export const environment: Environment = {
   production: true,
-  api: "http://localhost:3000",
-  apiWebSocket: "ws://localhost:3050",
+  api: "https://infospapi.onrender.com",
+  apiWebSocket: "ws://infospapi.onrender.com:443",
   imagesPath: 'assets',
   name: 'My Project 2',
   apiKeyGoogle: 'AIzaSyApPbBd0wDft1g6AWSRKPNFyrxtEcunhL0',
